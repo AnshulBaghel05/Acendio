@@ -61,7 +61,7 @@ export function SeoHead({
   title,
   description,
   path,
-  ogImage = SITE_CONFIG.defaultOgImage,
+  ogImage = SITE_CONFIG.ogImages.home,
   ogType = 'website',
   noIndex = false,
   serviceSchema,
@@ -71,23 +71,29 @@ export function SeoHead({
 }: SeoHeadProps) {
   useLayoutEffect(() => {
     const origin =
-      typeof window !== 'undefined' && window.location.origin
-        ? window.location.origin
-        : SITE_CONFIG.domain;
+      SITE_CONFIG.siteUrl ||
+      (typeof window !== 'undefined' && window.location.origin ? window.location.origin : '');
     const cleanPath = path === '/' ? '/' : path.replace(/\/+$/, '');
-    const canonicalUrl = `${origin}${cleanPath}`;
-    const absoluteOgImage = ogImage.startsWith('http') ? ogImage : `${origin}${ogImage}`;
+    const canonicalUrl = origin ? `${origin}${cleanPath}` : cleanPath;
+    const absoluteOgImage =
+      ogImage.startsWith('http') || !origin ? ogImage : `${origin}${ogImage}`;
+
+    const shouldIndex = SITE_CONFIG.isIndexable && !noIndex;
 
     document.title = title;
     setMetaTag('name', 'description', description);
-    setMetaTag('name', 'robots', noIndex ? 'noindex, nofollow' : 'index, follow');
-    setCanonical(canonicalUrl);
+    setMetaTag('name', 'robots', shouldIndex ? 'index, follow' : 'noindex, nofollow');
+    if (canonicalUrl) {
+      setCanonical(canonicalUrl);
+    }
 
     setMetaTag('property', 'og:type', ogType);
     setMetaTag('property', 'og:site_name', SITE_CONFIG.brandName);
     setMetaTag('property', 'og:title', title);
     setMetaTag('property', 'og:description', description);
-    setMetaTag('property', 'og:url', canonicalUrl);
+    if (canonicalUrl) {
+      setMetaTag('property', 'og:url', canonicalUrl);
+    }
     setMetaTag('property', 'og:image', absoluteOgImage);
 
     setMetaTag('name', 'twitter:card', 'summary_large_image');
@@ -95,54 +101,61 @@ export function SeoHead({
     setMetaTag('name', 'twitter:description', description);
     setMetaTag('name', 'twitter:image', absoluteOgImage);
 
-    // Build structured data graph (zero price/priceRange/offers fields)
+    const sameAs = Object.values(SITE_CONFIG.socials).filter(Boolean);
+    const orgNode: Record<string, unknown> = {
+      '@type': 'Organization',
+      '@id': `${origin}/#organization`,
+      name: SITE_CONFIG.brandName,
+      url: origin || '/',
+      description:
+        'AI and digital growth agency delivering conversion websites, AI receptionists, paid ads, review automation, and CRM workflows.',
+    };
+    if (SITE_CONFIG.email) orgNode.email = SITE_CONFIG.email;
+    if (SITE_CONFIG.phone) orgNode.telephone = SITE_CONFIG.phone;
+    if (SITE_CONFIG.targetRegions) orgNode.areaServed = SITE_CONFIG.targetRegions;
+    if (sameAs.length > 0) orgNode.sameAs = sameAs;
+
+    const localBusinessNode: Record<string, unknown> = {
+      '@type': 'ProfessionalService',
+      '@id': `${origin}/#localbusiness`,
+      name: SITE_CONFIG.brandName,
+      url: origin || '/',
+      parentOrganization: { '@id': `${origin}/#organization` },
+    };
+    if (SITE_CONFIG.phone) localBusinessNode.telephone = SITE_CONFIG.phone;
+    if (SITE_CONFIG.email) localBusinessNode.email = SITE_CONFIG.email;
+    if (SITE_CONFIG.targetRegions) localBusinessNode.areaServed = SITE_CONFIG.targetRegions;
+    if (SITE_CONFIG.address || SITE_CONFIG.location) {
+      localBusinessNode.address = {
+        '@type': 'PostalAddress',
+        ...(SITE_CONFIG.address ? { streetAddress: SITE_CONFIG.address } : {}),
+        ...(SITE_CONFIG.location ? { addressLocality: SITE_CONFIG.location } : {}),
+      };
+    }
+
     const graph: Record<string, unknown>[] = [
-      {
-        '@type': 'Organization',
-        '@id': `${origin}/#organization`,
-        name: SITE_CONFIG.brandName,
-        url: origin,
-        email: SITE_CONFIG.email,
-        telephone: SITE_CONFIG.phone,
-        description:
-          'AI and digital growth agency delivering conversion websites, AI receptionists, paid ads, review automation, and CRM workflows.',
-        areaServed: SITE_CONFIG.targetRegions,
-        sameAs: Object.values(SITE_CONFIG.socials),
-      },
+      orgNode,
       {
         '@type': 'WebSite',
         '@id': `${origin}/#website`,
-        url: origin,
+        url: origin || '/',
         name: SITE_CONFIG.brandName,
         publisher: { '@id': `${origin}/#organization` },
       },
-      {
-        '@type': 'ProfessionalService',
-        '@id': `${origin}/#localbusiness`,
-        name: SITE_CONFIG.brandName,
-        url: origin,
-        telephone: SITE_CONFIG.phone,
-        email: SITE_CONFIG.email,
-        address: {
-          '@type': 'PostalAddress',
-          streetAddress: SITE_CONFIG.address,
-          addressLocality: SITE_CONFIG.location,
-        },
-        areaServed: SITE_CONFIG.targetRegions,
-        parentOrganization: { '@id': `${origin}/#organization` },
-      },
+      localBusinessNode,
     ];
 
     if (serviceSchema) {
-      graph.push({
+      const svcNode: Record<string, unknown> = {
         '@type': 'Service',
         name: serviceSchema.name,
         description: serviceSchema.description,
         serviceType: serviceSchema.serviceType,
-        url: `${origin}${serviceSchema.url}`,
+        url: origin ? `${origin}${serviceSchema.url}` : serviceSchema.url,
         provider: { '@id': `${origin}/#organization` },
-        areaServed: SITE_CONFIG.targetRegions,
-      });
+      };
+      if (SITE_CONFIG.targetRegions) svcNode.areaServed = SITE_CONFIG.targetRegions;
+      graph.push(svcNode);
     }
 
     if (faqs && faqs.length > 0) {
@@ -166,7 +179,10 @@ export function SeoHead({
           '@type': 'ListItem',
           position: index + 1,
           name: crumb.name,
-          item: crumb.url.startsWith('http') ? crumb.url : `${origin}${crumb.url}`,
+          item:
+            crumb.url.startsWith('http') || !origin
+              ? crumb.url
+              : `${origin}${crumb.url}`,
         })),
       });
     }
@@ -178,9 +194,10 @@ export function SeoHead({
         description: articleSchema.description,
         datePublished: articleSchema.datePublished,
         dateModified: articleSchema.dateModified,
-        image: articleSchema.image.startsWith('http')
-          ? articleSchema.image
-          : `${origin}${articleSchema.image}`,
+        image:
+          articleSchema.image.startsWith('http') || !origin
+            ? articleSchema.image
+            : `${origin}${articleSchema.image}`,
         author: {
           '@type': 'Organization',
           name: articleSchema.authorName,
@@ -188,7 +205,7 @@ export function SeoHead({
         publisher: { '@id': `${origin}/#organization` },
         mainEntityOfPage: {
           '@type': 'WebPage',
-          '@id': `${origin}${articleSchema.url}`,
+          '@id': origin ? `${origin}${articleSchema.url}` : articleSchema.url,
         },
       });
     }

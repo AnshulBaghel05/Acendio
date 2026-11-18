@@ -1,11 +1,9 @@
-// NOT LEGAL ADVICE — REVIEW WITH LEGAL COUNSEL BEFORE PUBLISHING.
-// Replace bracketed business placeholders ([DOMAIN], [ADDRESS], [EMAIL], [PHONE], [LOCATION])
-// and customize clauses to match your exact jurisdiction and data processors.
+// NOT LEGAL ADVICE — REVIEW WITH QUALIFIED LEGAL COUNSEL BEFORE PUBLISHING.
+
+import { SITE_CONFIG } from '../config/site';
 
 export const LEGAL_CONTENT = {
-  lastUpdated: 'November 18, 2026',
-  notice:
-    'Template Notice: This page provides standard operational policy language for Acendio and is not legal advice. Have qualified legal counsel review and tailor these terms for your jurisdiction before production launch.',
+  lastUpdated: '18 Nov 2026',
   privacy: {
     title: 'Privacy Policy | Acendio',
     description:
@@ -14,8 +12,8 @@ export const LEGAL_CONTENT = {
       {
         heading: '1. Information We Collect',
         body: [
-          'When you submit a strategy call request, contact form, or growth audit request on [DOMAIN], we collect the contact details you provide—such as your first and last name, business name, email address, phone number, selected service interest, and message contents.',
-          'We also record technical attribution metadata (such as UTM parameters, referring URL, landing page URL, and consent timestamp) to evaluate marketing effectiveness and route your inquiry accurately.',
+          'When you submit a strategy call request, contact form, or growth audit request on Acendio, we collect the contact details you provide—such as your first and last name, business name, email address, phone number, selected service interest, and message contents.',
+          'We also record technical attribution metadata (such as UTM parameters, referring URL, source page URL, and consent timestamp) to evaluate marketing effectiveness and route your inquiry accurately.',
         ],
       },
       {
@@ -35,7 +33,7 @@ export const LEGAL_CONTENT = {
       {
         heading: '4. Cookies & Consent-Gated Analytics',
         body: [
-          'Essential storage is used solely for core site navigation, form security, and session UTM attribution. Non-essential analytics and advertising scripts (such as Google Analytics 4, Google Tag Manager, Meta Pixel, Microsoft Clarity, and GoHighLevel site tracking) are only loaded after you grant consent via our Cookie Preferences banner.',
+          'Essential storage is used solely for core site navigation, form security, and session UTM attribution. Non-essential analytics and advertising scripts (such as Google Analytics 4, Google Tag Manager, Meta Pixel, Microsoft Clarity, and GoHighLevel site tracking) only load after you grant consent via our Cookie Preferences banner.',
           'You can modify or withdraw your cookie preferences at any time using the "Cookie Preferences" control in the website footer.',
         ],
       },
@@ -48,7 +46,11 @@ export const LEGAL_CONTENT = {
       {
         heading: '6. Your Privacy Rights & Contact',
         body: [
-          'Depending on your jurisdiction, you may request access to, correction of, or deletion of personal data we hold about you. Send privacy requests to [EMAIL] or write to Acendio at [ADDRESS].',
+          `Depending on your jurisdiction, you may request access to, correction of, or deletion of personal data we hold about you. ${
+            SITE_CONFIG.email
+              ? `Send privacy requests to ${SITE_CONFIG.email}.`
+              : 'Submit privacy requests through our Contact page.'
+          }`,
         ],
       },
     ],
@@ -61,7 +63,7 @@ export const LEGAL_CONTENT = {
       {
         heading: '1. Acceptance of Terms',
         body: [
-          'By accessing or using [DOMAIN] (the "Site"), operated by Acendio ("we", "us", "our") from [LOCATION], you agree to comply with these Terms of Service and applicable laws across [TARGET REGIONS].',
+          'By accessing or using this website, operated by Acendio, you agree to comply with these Terms of Service and applicable laws.',
         ],
       },
       {
@@ -91,7 +93,11 @@ export const LEGAL_CONTENT = {
       {
         heading: '6. Limitation of Liability & Contact',
         body: [
-          'To the maximum extent permitted by law, Acendio provides this Site on an "as-is" basis without warranties of uninterrupted availability. Questions regarding these Terms may be directed to [EMAIL] or [PHONE].',
+          `To the maximum extent permitted by law, Acendio provides this Site on an "as-is" basis without warranties of uninterrupted availability. ${
+            SITE_CONFIG.email
+              ? `Questions regarding these Terms may be directed to ${SITE_CONFIG.email}.`
+              : 'Questions regarding these Terms may be submitted via our Contact page.'
+          }`,
         ],
       },
     ],

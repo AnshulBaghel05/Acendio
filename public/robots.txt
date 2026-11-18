@@ -1,4 +1,6 @@
 User-agent: *
-Allow: /
+Disallow: /
 
-Sitemap: https://[DOMAIN]/sitemap.xml
+# Flip VITE_INDEXABLE=true and set VITE_SITE_URL in your build environment
+# to generate an indexable robots.txt and full domain sitemap.xml.
+Sitemap: /sitemap.xml

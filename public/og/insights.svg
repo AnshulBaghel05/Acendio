@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" fill="none">
+  <rect width="1200" height="630" fill="#F4F1EA"/>
+  <rect x="48" y="48" width="1104" height="534" stroke="#D9D4C7" stroke-width="2"/>
+  <path d="M96 144H120V128H144V112H168V96H192V144H180V108H176V124H152V140H128V156H96V144Z" fill="#0E0F12"/>
+  <rect x="168" y="96" width="24" height="10" fill="#FF5A1F"/>
+  <text x="214" y="138" font-family="Georgia, serif" font-size="38" font-weight="700" fill="#0E0F12">Acendio · Insights</text>
+  <line x1="96" y1="196" x2="1104" y2="196" stroke="#D9D4C7" stroke-width="2"/>
+  <text x="96" y="300" font-family="Georgia, serif" font-size="62" font-weight="600" fill="#0E0F12">Field Notes on AI Reception,</text>
+  <text x="96" y="378" font-family="Georgia, serif" font-size="62" font-weight="600" fill="#0E0F12">Speed-to-Lead &amp; Local SEO</text>
+  <text x="96" y="462" font-family="system-ui, sans-serif" font-size="25" fill="#5C5F66">Practical playbooks for owners and operators.</text>
+</svg>

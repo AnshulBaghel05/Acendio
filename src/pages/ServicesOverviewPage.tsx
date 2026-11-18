@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight, Sparkles } from 'lucide-react';
-import { MORE_SOLUTIONS_CARD, SERVICES_CONTENT } from '../content/services';
+import { ArrowRight } from 'lucide-react';
+import { SERVICES_CONTENT } from '../content/services';
+import { SITE_CONFIG } from '../config/site';
+import { trackEvent } from '../lib/analytics';
 import { SeoHead } from '../components/SeoHead';
 import { Breadcrumbs } from '../components/Breadcrumbs';
-import { ServiceIcon } from '../components/ServiceIcon';
 import { CtaBand } from '../components/CtaBand';
 
 interface ServicesOverviewPageProps {
@@ -15,98 +16,136 @@ export default function ServicesOverviewPage({ onOpenBookModal }: ServicesOvervi
     <>
       <SeoHead
         title="AI & Digital Growth Services | Acendio"
-        description="Explore Acendio services: conversion websites, 24/7 AI receptionists, Google & Meta ads, review automation, CRM pipelines, AI chat, and custom software."
+        description="Explore Acendio services: website development and maintenance, 24/7 AI receptionists, Google and Meta ads, review automation, CRM follow-up, AI chat, and custom software."
         path="/services"
+        ogImage={SITE_CONFIG.ogImages.service}
         breadcrumbs={[
           { name: 'Home', url: '/' },
           { name: 'Services', url: '/services' },
         ]}
       />
 
-      <section className="bg-mesh-hero border-b border-white/8 py-14 sm:py-20">
+      <section className="border-b border-[#D9D4C7] bg-[#F4F1EA] py-14 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Breadcrumbs items={[{ label: 'Home', to: '/' }, { label: 'Services' }]} />
-          <div className="max-w-3xl">
-            <p className="font-mono-tabular text-xs font-medium text-[#22D3EE]">
-              Acendio Capabilities
-            </p>
-            <h1 className="mt-2 font-display text-[clamp(2rem,3.6vw,3.25rem)] font-extrabold leading-tight text-[#F4F5F7]">
-              Integrated Web, AI &amp; Growth Automation Services
-            </h1>
-            <p className="mt-4 text-base leading-relaxed text-[#9AA0AE] sm:text-lg">
-              Deploy a single high-impact module or combine all seven systems into one accountable lead capture and booking engine.
-            </p>
+          <div className="grid items-end gap-8 lg:grid-cols-12">
+            <div className="lg:col-span-8">
+              <p className="font-mono-tabular text-xs font-medium uppercase tracking-wider text-[#FF5A1F]">
+                System Index · 01 — 07
+              </p>
+              <h1 className="mt-3 font-editorial text-[clamp(2.1rem,4vw,3.5rem)] font-semibold leading-[1.06] tracking-[-0.025em] text-[#0E0F12]">
+                Seven Connected Growth Services Built to Work as One Stack
+              </h1>
+              <p className="mt-4 max-w-2xl text-base leading-relaxed text-[#5C5F66] sm:text-lg">
+                Start with your most immediate revenue leak—missed calls, slow follow-up, weak mobile conversion, or stalled ads—or deploy the full system cleanly connected to GoHighLevel.
+              </p>
+            </div>
+            <div className="lg:col-span-4 lg:text-right">
+              <button
+                type="button"
+                onClick={() => {
+                  trackEvent('cta_click', { location: 'services_overview_hero' });
+                  onOpenBookModal();
+                }}
+                className="btn-signal inline-flex min-h-[48px] items-center gap-2 px-6 py-3 text-sm whitespace-nowrap"
+              >
+                <span>Book a Free Strategy Call</span>
+                <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </button>
+            </div>
           </div>
         </div>
       </section>
 
-      <section className="bg-[#0A0B10] py-16 sm:py-20">
+      {/* Architectural Ledger of Services */}
+      <section className="bg-[#FFFFFF] py-14 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {SERVICES_CONTENT.map((service, idx) => (
-              <article
+          <div className="divide-y divide-[#D9D4C7] border-y border-[#0E0F12]">
+            {SERVICES_CONTENT.map((service) => (
+              <div
                 key={service.slug}
-                className="gradient-border-card flex flex-col justify-between rounded-2xl p-7"
+                className="grid gap-6 py-8 lg:grid-cols-12 lg:items-start"
               >
-                <div>
-                  <div className="flex items-center justify-between">
-                    <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 bg-[#0A0B10] text-[#22D3EE]">
-                      <ServiceIcon name={service.iconName} className="h-5 w-5" />
-                    </div>
-                    <span className="font-mono-tabular text-xs text-[#9AA0AE]">0{idx + 1}</span>
+                <div className="lg:col-span-4">
+                  <div className="flex items-baseline gap-3">
+                    <span className="font-mono-tabular text-xl font-semibold text-[#FF5A1F]">
+                      {service.numeral}
+                    </span>
+                    <h2 className="font-editorial text-2xl font-semibold text-[#0E0F12]">
+                      <Link to={`/services/${service.slug}`} className="hover:text-[#FF5A1F]">
+                        {service.shortTitle}
+                      </Link>
+                    </h2>
                   </div>
-                  <h2 className="mt-5 font-display text-xl font-bold text-[#F4F5F7]">
-                    {service.shortTitle}
-                  </h2>
-                  <p className="mt-2.5 text-sm leading-relaxed text-[#9AA0AE]">
+                  <p className="mt-2 pl-8 text-sm leading-relaxed text-[#5C5F66]">
                     {service.heroSubheadline}
                   </p>
-                  <ul className="mt-5 space-y-2 border-t border-white/8 pt-4 text-xs text-[#9AA0AE]">
-                    {service.deliverables.slice(0, 3).map((d) => (
-                      <li key={d.title}>· {d.title}</li>
+                </div>
+
+                <div className="lg:col-span-5">
+                  <p className="font-mono-tabular text-[11px] uppercase tracking-wider text-[#5C5F66]">
+                    Core Deliverables Included
+                  </p>
+                  <ul className="mt-2.5 grid gap-2 sm:grid-cols-2">
+                    {service.deliverables.slice(0, 4).map((item) => (
+                      <li
+                        key={item.title}
+                        className="border-l-2 border-[#D9D4C7] pl-3 text-xs font-medium text-[#0E0F12]"
+                      >
+                        {item.title}
+                      </li>
                     ))}
                   </ul>
                 </div>
 
-                <div className="mt-6 pt-2">
+                <div className="flex flex-col items-start gap-2.5 lg:col-span-3 lg:items-end lg:text-right">
+                  <span className="font-mono-tabular text-[11px] text-[#5C5F66]">
+                    Scoped custom proposal after discovery
+                  </span>
                   <Link
                     to={`/services/${service.slug}`}
-                    className="inline-flex min-h-[44px] items-center gap-1.5 text-sm font-semibold text-[#22D3EE] hover:underline"
+                    className="btn-outline-ink inline-flex min-h-[42px] items-center gap-2 px-4 py-2 text-xs whitespace-nowrap"
                   >
-                    <span>Explore {service.shortTitle}</span>
-                    <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                    <span>Explore {service.shortTitle.split(' ')[0]} Architecture</span>
+                    <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
                   </Link>
                 </div>
-              </article>
+              </div>
             ))}
+          </div>
 
-            <article className="flex flex-col justify-between rounded-2xl border border-dashed border-[#6366F1]/40 bg-[#12141C] p-7">
-              <div>
-                <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-[#6366F1]/30 bg-[#0A0B10] text-[#818CF8]">
-                  <Sparkles className="h-5 w-5" aria-hidden="true" />
-                </div>
-                <h2 className="mt-5 font-display text-xl font-bold text-[#F4F5F7]">
-                  {MORE_SOLUTIONS_CARD.title}
-                </h2>
-                <p className="mt-2.5 text-sm leading-relaxed text-[#9AA0AE]">
-                  {MORE_SOLUTIONS_CARD.outcome}
-                </p>
-              </div>
-              <div className="mt-6 pt-2">
-                <Link
-                  to={MORE_SOLUTIONS_CARD.to}
-                  className="inline-flex min-h-[44px] items-center gap-1.5 text-sm font-semibold text-[#22D3EE] hover:underline"
-                >
-                  <span>{MORE_SOLUTIONS_CARD.ctaLabel}</span>
-                  <ArrowRight className="h-4 w-4" aria-hidden="true" />
-                </Link>
-              </div>
-            </article>
+          {/* Balanced 8th-Slot Custom Scoping Block */}
+          <div className="mt-10 grid items-center gap-6 border border-[#0E0F12] bg-[#F4F1EA] p-6 sm:p-8 lg:grid-cols-12">
+            <div className="lg:col-span-8">
+              <p className="font-mono-tabular text-xs font-semibold text-[#FF5A1F]">
+                08 / INTEGRATED BUNDLES
+              </p>
+              <h2 className="mt-2 font-editorial text-2xl font-semibold text-[#0E0F12]">
+                Need Multiple Systems Deployed Together?
+              </h2>
+              <p className="mt-2 text-sm text-[#5C5F66]">
+                We sequence website development, AI receptionists, paid ads, and GoHighLevel CRM automation under a single rollout plan—never cookie-cutter tiers.
+              </p>
+            </div>
+            <div className="lg:col-span-4 lg:text-right">
+              <Link
+                to="/contact"
+                className="btn-signal inline-flex min-h-[46px] items-center gap-2 px-6 py-3 text-sm whitespace-nowrap"
+              >
+                <span>Request a Custom Scope</span>
+                <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </Link>
+            </div>
           </div>
         </div>
       </section>
 
-      <CtaBand onOpenBookModal={onOpenBookModal} />
+      <CtaBand
+        eyebrow="Scoping & Architecture"
+        headline="Not Sure Which Gap Is Costing You the Most Bookings?"
+        subtitle="Book a short discovery call. We will inspect your current call flow, website speed, and CRM response times together."
+        onOpenBookModal={onOpenBookModal}
+      />
     </>
   );
 }

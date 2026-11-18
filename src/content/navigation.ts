@@ -8,37 +8,37 @@ export const SERVICE_NAV_LINKS: NavLinkItem[] = [
   {
     label: 'Website Development & Maintenance',
     to: '/services/website-development-maintenance',
-    description: 'Conversion-focused builds, technical SEO, hosting, and ongoing care.',
+    description: 'Fast, mobile-first sites, technical SEO, hosting, and ongoing care.',
   },
   {
     label: 'AI Receptionist',
     to: '/services/ai-receptionist',
-    description: '24/7 voice and SMS agents that qualify leads and book appointments.',
+    description: '24/7 voice and SMS agents that qualify callers and book calendars.',
   },
   {
     label: 'Ads Management & Creatives',
     to: '/services/ads-management-creatives',
-    description: 'Meta and Google campaigns with dedicated creative testing.',
+    description: 'Meta and Google campaigns paired with custom static and video creatives.',
   },
   {
     label: 'Review Management & Automation',
     to: '/services/review-management-automation',
-    description: 'Automated review requests, routing, AI replies, and GBP growth.',
+    description: 'Post-visit review invites, sentiment routing, and timely replies.',
   },
   {
     label: 'CRM & Lead Follow-Up Automation',
     to: '/services/crm-lead-follow-up-automation',
-    description: 'Instant speed-to-lead, multi-channel nurture, and reactivation.',
+    description: 'Instant lead response, multi-channel follow-up, and no-show reminders.',
   },
   {
     label: 'AI Chat & Support',
     to: '/services/ai-chat-support',
-    description: 'Web and social chat agents trained on verified company knowledge.',
+    description: 'Web and social chat trained on your FAQs with smooth human handoff.',
   },
   {
     label: 'Custom Software & AI Automation',
     to: '/services/custom-software-ai-automation',
-    description: 'Bespoke operational dashboards, API bridges, and LLM workflows.',
+    description: 'Internal tools, API bridges, and structured AI workflows.',
   },
 ];
 
@@ -47,14 +47,14 @@ export const TOP_NAV_LINKS: NavLinkItem[] = [
   { label: 'Industries', to: '/industries' },
   { label: 'Process', to: '/process' },
   { label: 'About', to: '/about' },
-  { label: 'Insights', to: '/blog' },
+  { label: 'Insights', to: '/insights' },
 ];
 
 export const FOOTER_COMPANY_LINKS: NavLinkItem[] = [
   { label: 'About Acendio', to: '/about' },
   { label: 'Our Process', to: '/process' },
   { label: 'Industries', to: '/industries' },
-  { label: 'Insights & Guides', to: '/blog' },
+  { label: 'Insights', to: '/insights' },
   { label: 'FAQ', to: '/faq' },
   { label: 'Contact Us', to: '/contact' },
 ];

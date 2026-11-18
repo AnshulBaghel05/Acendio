@@ -1,4 +1,4 @@
-import { GHL_CONFIG, isPlaceholderValue } from '../config/ghl';
+import { GHL_CONFIG, isConfigured } from '../config/ghl';
 
 export type AnalyticsEventName =
   | 'cta_click'
@@ -19,10 +19,10 @@ export interface ConsentPreferences {
 const CONSENT_STORAGE_KEY = 'acendio_cookie_consent_v1';
 
 const ANALYTICS_IDS = {
-  GA4_MEASUREMENT_ID: import.meta.env.VITE_GA4_ID || '[GA4_MEASUREMENT_ID]',
-  GTM_CONTAINER_ID: import.meta.env.VITE_GTM_ID || '[GTM_CONTAINER_ID]',
-  META_PIXEL_ID: import.meta.env.VITE_META_PIXEL_ID || '[META_PIXEL_ID]',
-  CLARITY_ID: import.meta.env.VITE_CLARITY_ID || '[MICROSOFT_CLARITY_ID]',
+  GA4_MEASUREMENT_ID: import.meta.env.VITE_GA4_ID || '',
+  GTM_CONTAINER_ID: import.meta.env.VITE_GTM_ID || '',
+  META_PIXEL_ID: import.meta.env.VITE_META_PIXEL_ID || '',
+  CLARITY_ID: import.meta.env.VITE_CLARITY_ID || '',
 } as const;
 
 let scriptsInitialized = false;
@@ -74,15 +74,11 @@ function injectScriptOnce(id: string, src: string, attrs: Record<string, string>
   document.head.appendChild(script);
 }
 
-/**
- * Loads third-party analytics & GHL tracking scripts strictly after consent
- * and outside the critical rendering path.
- */
 export function initializeTrackingScripts(consent: ConsentPreferences): void {
   if (scriptsInitialized || typeof window === 'undefined') return;
   scriptsInitialized = true;
 
-  if (consent.analytics && !isPlaceholderValue(ANALYTICS_IDS.GA4_MEASUREMENT_ID)) {
+  if (consent.analytics && isConfigured(ANALYTICS_IDS.GA4_MEASUREMENT_ID)) {
     window.dataLayer = window.dataLayer || [];
     window.gtag = function gtag(...args: unknown[]) {
       window.dataLayer?.push(args);
@@ -95,7 +91,7 @@ export function initializeTrackingScripts(consent: ConsentPreferences): void {
     );
   }
 
-  if (consent.analytics && !isPlaceholderValue(ANALYTICS_IDS.GTM_CONTAINER_ID)) {
+  if (consent.analytics && isConfigured(ANALYTICS_IDS.GTM_CONTAINER_ID)) {
     window.dataLayer = window.dataLayer || [];
     window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
     injectScriptOnce(
@@ -104,35 +100,31 @@ export function initializeTrackingScripts(consent: ConsentPreferences): void {
     );
   }
 
-  if (consent.analytics && !isPlaceholderValue(ANALYTICS_IDS.CLARITY_ID)) {
+  if (consent.analytics && isConfigured(ANALYTICS_IDS.CLARITY_ID)) {
     injectScriptOnce(
       'acendio-clarity',
       `https://www.clarity.ms/tag/${encodeURIComponent(ANALYTICS_IDS.CLARITY_ID)}`,
     );
   }
 
-  if (consent.marketing && !isPlaceholderValue(ANALYTICS_IDS.META_PIXEL_ID)) {
+  if (consent.marketing && isConfigured(ANALYTICS_IDS.META_PIXEL_ID)) {
     injectScriptOnce('acendio-meta-pixel', 'https://connect.facebook.net/en_US/fbevents.js');
     window.fbq?.('init', ANALYTICS_IDS.META_PIXEL_ID);
     window.fbq?.('track', 'PageView');
   }
 
-  if (consent.analytics && !isPlaceholderValue(GHL_CONFIG.GHL_TRACKING_SCRIPT)) {
+  if (consent.analytics && isConfigured(GHL_CONFIG.GHL_TRACKING_SCRIPT)) {
     injectScriptOnce(
       'acendio-ghl-tracking',
-      `https://link.msgsndr.com/js/external-tracking.js`,
+      'https://link.msgsndr.com/js/external-tracking.js',
       { 'data-tracking-id': GHL_CONFIG.GHL_TRACKING_SCRIPT },
     );
   }
 }
 
-/**
- * Loads the GHL Chat Widget asynchronously after first user interaction or idle
- * to protect Core Web Vitals (LCP / INP / TBT).
- */
 export function scheduleGhlChatWidgetLoad(): void {
   if (ghlChatInitialized || typeof window === 'undefined') return;
-  if (isPlaceholderValue(GHL_CONFIG.GHL_CHAT_WIDGET_SCRIPT_ID)) return;
+  if (!isConfigured(GHL_CONFIG.GHL_CHAT_WIDGET_SCRIPT_ID)) return;
 
   const loadWidget = () => {
     if (ghlChatInitialized) return;

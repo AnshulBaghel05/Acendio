@@ -5,6 +5,7 @@ import {
   Route,
   Routes,
   useLocation,
+  useParams,
 } from 'react-router-dom';
 import { captureAttributionOnLoad } from './lib/utm';
 import { scheduleGhlChatWidgetLoad, trackEvent } from './lib/analytics';
@@ -30,11 +31,15 @@ const ThankYouPage = lazy(() => import('./pages/ThankYouPage'));
 const LegalPage = lazy(() => import('./pages/LegalPage'));
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
 
+function BlogSlugRedirect() {
+  const { slug } = useParams<{ slug: string }>();
+  return <Navigate to={slug ? `/insights/${slug}` : '/insights'} replace />;
+}
+
 function RouteLifecycleManager() {
   const { pathname, search, hash } = useLocation();
 
   useEffect(() => {
-    // Scroll to hash target or top on route navigation
     if (hash) {
       const target = document.getElementById(hash.slice(1));
       if (target) {
@@ -46,7 +51,6 @@ function RouteLifecycleManager() {
   }, [pathname, hash]);
 
   useEffect(() => {
-    // Track 75% scroll depth once per route view
     let fired = false;
     const onScroll = () => {
       if (fired) return;
@@ -62,7 +66,6 @@ function RouteLifecycleManager() {
     return () => window.removeEventListener('scroll', onScroll);
   }, [pathname]);
 
-  // Strip trailing slashes consistently (301-ready client-side canonical policy)
   if (pathname !== '/' && pathname.endsWith('/')) {
     return <Navigate to={`${pathname.replace(/\/+$/, '')}${search}${hash}`} replace />;
   }
@@ -73,7 +76,7 @@ function RouteLifecycleManager() {
 function PageLoadingFallback() {
   return (
     <div className="mx-auto flex min-h-[50vh] max-w-7xl items-center justify-center px-4 py-20">
-      <div className="h-7 w-7 animate-spin rounded-full border-2 border-white/15 border-t-[#22D3EE]" />
+      <div className="h-7 w-7 animate-spin rounded-full border-2 border-[#D9D4C7] border-t-[#FF5A1F]" />
     </div>
   );
 }
@@ -90,10 +93,10 @@ function AppShell() {
   const handleOpenBookModal = () => setBookModalOpen(true);
 
   return (
-    <div className="flex min-h-screen flex-col bg-[#0A0B10] text-[#F4F5F7]">
+    <div className="flex min-h-screen flex-col bg-[#F4F1EA] text-[#0E0F12]">
       <a
         href="#main-content"
-        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-[#22D3EE] focus:px-4 focus:py-2 focus:text-sm focus:font-bold focus:text-[#06080F]"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:border focus:border-[#0E0F12] focus:bg-[#FF5A1F] focus:px-4 focus:py-2 focus:text-sm focus:font-bold focus:text-[#0E0F12]"
       >
         Skip to main content
       </a>
@@ -130,13 +133,15 @@ function AppShell() {
               element={<IndustryDetailPage onOpenBookModal={handleOpenBookModal} />}
             />
             <Route
-              path="/blog"
+              path="/insights"
               element={<BlogIndexPage onOpenBookModal={handleOpenBookModal} />}
             />
             <Route
-              path="/blog/:slug"
+              path="/insights/:slug"
               element={<BlogPostPage onOpenBookModal={handleOpenBookModal} />}
             />
+            <Route path="/blog" element={<Navigate to="/insights" replace />} />
+            <Route path="/blog/:slug" element={<BlogSlugRedirect />} />
             <Route path="/faq" element={<FaqPage onOpenBookModal={handleOpenBookModal} />} />
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/thank-you" element={<ThankYouPage />} />

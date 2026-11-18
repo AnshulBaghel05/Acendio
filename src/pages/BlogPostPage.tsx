@@ -1,8 +1,10 @@
 import { Link, useParams } from 'react-router-dom';
-import { ArrowRight } from 'lucide-react';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { BLOG_POSTS, getBlogPostBySlug } from '../content/blog';
+import { SITE_CONFIG } from '../config/site';
 import { SeoHead } from '../components/SeoHead';
 import { Breadcrumbs } from '../components/Breadcrumbs';
+import { BlogDiagramCover } from '../components/diagrams/BlogDiagramCover';
 import { CtaBand } from '../components/CtaBand';
 import NotFoundPage from './NotFoundPage';
 
@@ -18,20 +20,20 @@ export default function BlogPostPage({ onOpenBookModal }: BlogPostPageProps) {
     return <NotFoundPage />;
   }
 
-  const otherPosts = BLOG_POSTS.filter((p) => p.slug !== post.slug);
+  const otherPosts = BLOG_POSTS.filter((item) => item.slug !== post.slug);
 
   return (
     <>
       <SeoHead
         title={post.metaTitle}
         description={post.metaDescription}
-        path={`/blog/${post.slug}`}
+        path={`/insights/${post.slug}`}
         ogType="article"
-        ogImage={post.coverImage}
+        ogImage={SITE_CONFIG.ogImages.insights}
         breadcrumbs={[
           { name: 'Home', url: '/' },
-          { name: 'Insights', url: '/blog' },
-          { name: post.title, url: `/blog/${post.slug}` },
+          { name: 'Insights', url: '/insights' },
+          { name: post.title, url: `/insights/${post.slug}` },
         ]}
         articleSchema={{
           headline: post.title,
@@ -39,132 +41,167 @@ export default function BlogPostPage({ onOpenBookModal }: BlogPostPageProps) {
           datePublished: post.publishedDate,
           dateModified: post.modifiedDate,
           authorName: post.author,
-          image: post.coverImage,
-          url: `/blog/${post.slug}`,
+          image: SITE_CONFIG.ogImages.insights,
+          url: `/insights/${post.slug}`,
         }}
       />
 
-      <article className="bg-[#0A0B10] py-12 sm:py-16">
-        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-          <Breadcrumbs
-            items={[
-              { label: 'Home', to: '/' },
-              { label: 'Insights', to: '/blog' },
-              { label: post.title },
-            ]}
-          />
+      <article>
+        <header className="border-b border-[#D9D4C7] bg-[#F4F1EA] py-12 sm:py-16">
+          <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+            <Breadcrumbs
+              items={[
+                { label: 'Home', to: '/' },
+                { label: 'Insights', to: '/insights' },
+                { label: post.category },
+              ]}
+            />
 
-          <header>
-            <div className="flex flex-wrap items-center gap-2 text-xs text-[#9AA0AE]">
-              <span className="font-medium text-[#22D3EE]">{post.category}</span>
-              <span aria-hidden="true">·</span>
-              <span>Published {post.publishedDate}</span>
-              <span aria-hidden="true">·</span>
-              <span>Updated {post.modifiedDate}</span>
-              <span aria-hidden="true">·</span>
+            <div className="flex flex-wrap items-center gap-3 font-mono-tabular text-xs text-[#5C5F66]">
+              <span className="font-semibold text-[#FF5A1F]">{post.category}</span>
+              <span>·</span>
+              <time dateTime={post.publishedDate}>{post.displayPublishedDate}</time>
+              <span>·</span>
+              <span>Updated {post.displayModifiedDate}</span>
+              <span>·</span>
               <span>{post.readTime}</span>
             </div>
 
-            <h1 className="mt-3 font-display text-[clamp(1.9rem,3.4vw,3rem)] font-extrabold leading-tight text-[#F4F5F7]">
+            <h1 className="mt-4 font-editorial text-[clamp(2rem,3.6vw,3.1rem)] font-semibold leading-[1.08] tracking-[-0.02em] text-[#0E0F12]">
               {post.title}
             </h1>
+            <p className="mt-4 max-w-3xl text-base leading-relaxed text-[#5C5F66] sm:text-lg">
+              {post.excerpt}
+            </p>
+            <p className="mt-4 font-mono-tabular text-xs text-[#0E0F12]">
+              By {post.author} · {post.authorRole}
+            </p>
 
-            <div className="mt-4 flex items-center gap-2 text-sm text-[#9AA0AE]">
-              <span>By {post.author}</span>
-              <span aria-hidden="true">·</span>
-              <span>{post.authorRole}</span>
+            <div className="mt-8 border border-[#D9D4C7] bg-[#FFFFFF]">
+              <BlogDiagramCover type={post.diagramType} category={post.category} />
             </div>
+          </div>
+        </header>
 
-            <div className="mt-8 overflow-hidden rounded-2xl border border-white/10 bg-[#12141C]">
-              <img
-                src={post.coverImage}
-                alt={post.coverAlt}
-                width={1280}
-                height={720}
-                referrerPolicy="no-referrer"
-                className="aspect-video w-full object-cover"
-              />
-            </div>
-          </header>
-
-          {/* Table of Contents */}
-          <nav
-            aria-label="Table of contents"
-            className="mt-10 rounded-2xl border border-white/10 bg-[#12141C] p-6"
-          >
-            <p className="font-display text-sm font-bold text-[#F4F5F7]">Table of Contents</p>
-            <ol className="mt-3 space-y-2 text-sm text-[#9AA0AE]">
-              {post.toc.map((item, idx) => (
-                <li key={item.id}>
-                  <a href={`#${item.id}`} className="hover:text-[#22D3EE]">
-                    <span className="font-mono-tabular mr-2 text-xs text-[#818CF8]">
-                      0{idx + 1}.
-                    </span>
-                    {item.label}
-                  </a>
-                </li>
-              ))}
-            </ol>
-          </nav>
-
-          {/* Article Body */}
-          <div className="mt-12 space-y-12">
-            {post.sections.map((section) => (
-              <section key={section.id} id={section.id} className="scroll-mt-24">
-                <h2 className="font-display text-2xl font-bold text-[#F4F5F7] sm:text-3xl">
-                  {section.heading}
-                </h2>
-                <div className="mt-4 space-y-4 text-base leading-[1.75] text-[#9AA0AE]">
-                  {section.paragraphs.map((p) => (
-                    <p key={p}>{p}</p>
-                  ))}
-                </div>
-                {section.bullets && (
-                  <ul className="mt-5 space-y-2.5 rounded-xl border border-white/10 bg-[#12141C] p-5 text-sm text-[#F4F5F7]">
-                    {section.bullets.map((b) => (
-                      <li key={b}>· {b}</li>
+        <section className="bg-[#FFFFFF] py-14 sm:py-16">
+          <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+            <div className="grid items-start gap-10 lg:grid-cols-12">
+              {/* Sticky TOC */}
+              <aside className="lg:sticky lg:top-24 lg:col-span-4">
+                <div className="border border-[#D9D4C7] bg-[#F4F1EA] p-5">
+                  <p className="font-mono-tabular text-[11px] font-semibold uppercase tracking-wider text-[#FF5A1F]">
+                    In This Guide
+                  </p>
+                  <nav aria-label="Article table of contents" className="mt-3 space-y-2">
+                    {post.toc.map((item, idx) => (
+                      <a
+                        key={item.id}
+                        href={`#${item.id}`}
+                        className="flex items-start gap-2.5 text-xs leading-snug text-[#5C5F66] hover:text-[#0E0F12]"
+                      >
+                        <span className="font-mono-tabular text-[#FF5A1F]">
+                          {String(idx + 1).padStart(2, '0')}
+                        </span>
+                        <span>{item.label}</span>
+                      </a>
                     ))}
-                  </ul>
-                )}
-                {section.internalLink && (
-                  <div className="mt-5">
+                  </nav>
+
+                  <div className="mt-5 border-t border-[#D9D4C7] pt-4">
                     <Link
-                      to={section.internalLink.to}
-                      className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#22D3EE] hover:underline"
+                      to="/insights"
+                      className="inline-flex items-center gap-1.5 font-mono-tabular text-xs font-semibold text-[#0E0F12] hover:text-[#FF5A1F]"
                     >
-                      <span>{section.internalLink.label}</span>
-                      <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                      <ArrowLeft className="h-3.5 w-3.5" aria-hidden="true" />
+                      <span>All Insights</span>
                     </Link>
                   </div>
-                )}
-              </section>
-            ))}
-          </div>
+                </div>
+              </aside>
 
-          {/* Further Reading */}
-          <div className="mt-16 border-t border-white/10 pt-10">
-            <h2 className="font-display text-xl font-bold text-[#F4F5F7]">
-              More Insights From Acendio
-            </h2>
-            <div className="mt-6 grid gap-5 sm:grid-cols-2">
+              {/* Editorial Body */}
+              <div className="space-y-10 lg:col-span-8">
+                {post.sections.map((section) => (
+                  <section
+                    key={section.id}
+                    id={section.id}
+                    className="scroll-mt-24 border-b border-[#D9D4C7] pb-8 last:border-b-0"
+                  >
+                    <h2 className="font-editorial text-2xl font-semibold text-[#0E0F12] sm:text-3xl">
+                      {section.heading}
+                    </h2>
+                    <div className="mt-4 space-y-4">
+                      {section.paragraphs.map((para) => (
+                        <p
+                          key={para.slice(0, 32)}
+                          className="text-base leading-relaxed text-[#5C5F66]"
+                        >
+                          {para}
+                        </p>
+                      ))}
+                    </div>
+
+                    {section.bullets && section.bullets.length > 0 && (
+                      <ul className="mt-5 space-y-2 border-l-2 border-[#FF5A1F] bg-[#F4F1EA] py-3 pl-5 pr-4">
+                        {section.bullets.map((bullet) => (
+                          <li key={bullet} className="text-sm leading-relaxed text-[#0E0F12]">
+                            {bullet}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+
+                    {section.internalLink && (
+                      <div className="mt-5">
+                        <Link
+                          to={section.internalLink.to}
+                          className="link-editorial inline-flex items-center gap-1.5 text-sm font-semibold text-[#0E0F12]"
+                        >
+                          <span>{section.internalLink.label}</span>
+                          <ArrowRight className="h-4 w-4 text-[#FF5A1F]" aria-hidden="true" />
+                        </Link>
+                      </div>
+                    )}
+                  </section>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Related Insights */}
+        <section className="border-t border-[#D9D4C7] bg-[#F4F1EA] py-12">
+          <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+            <p className="font-mono-tabular text-xs font-medium uppercase tracking-wider text-[#FF5A1F]">
+              Further Reading
+            </p>
+            <div className="mt-4 grid gap-6 sm:grid-cols-2">
               {otherPosts.map((other) => (
                 <Link
                   key={other.slug}
-                  to={`/blog/${other.slug}`}
-                  className="gradient-border-card rounded-xl p-5"
+                  to={`/insights/${other.slug}`}
+                  className="group border border-[#D9D4C7] bg-[#FFFFFF] p-5 transition-colors hover:border-[#0E0F12]"
                 >
-                  <p className="text-xs text-[#22D3EE]">{other.category}</p>
-                  <h3 className="mt-1.5 font-display text-base font-bold text-[#F4F5F7]">
+                  <div className="flex items-center justify-between font-mono-tabular text-[11px] text-[#5C5F66]">
+                    <span>{other.category}</span>
+                    <span>{other.displayPublishedDate}</span>
+                  </div>
+                  <h3 className="mt-2 font-editorial text-xl font-semibold text-[#0E0F12] group-hover:text-[#FF5A1F]">
                     {other.title}
                   </h3>
                 </Link>
               ))}
             </div>
           </div>
-        </div>
+        </section>
       </article>
 
-      <CtaBand onOpenBookModal={onOpenBookModal} />
+      <CtaBand
+        eyebrow="Custom Implementation"
+        headline="Ready to Connect Your Website, Voice Coverage & CRM?"
+        subtitle="Schedule a discovery call to audit your existing setup and receive a custom proposal."
+        onOpenBookModal={onOpenBookModal}
+      />
     </>
   );
 }

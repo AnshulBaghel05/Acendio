@@ -2,8 +2,8 @@ import { useEffect, useRef, useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { ChevronDown, Menu, X } from 'lucide-react';
 import { SERVICE_NAV_LINKS, TOP_NAV_LINKS } from '../content/navigation';
-import { SITE_CONFIG } from '../config/site';
 import { trackEvent } from '../lib/analytics';
+import { BrandMark } from './BrandMark';
 
 interface NavbarProps {
   onOpenBookModal: () => void;
@@ -41,21 +41,18 @@ export function Navbar({ onOpenBookModal }: NavbarProps) {
   }, []);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-white/8 bg-[#0A0B10]/85 backdrop-blur-md">
-      {/* Strict 3-Zone Top Bar Contract */}
+    <header className="sticky top-0 z-40 border-b border-[#D9D4C7] bg-[#F4F1EA]">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-8 px-4 sm:px-6 lg:px-8">
-        {/* Zone 1: Single-line Brand Wordmark */}
-        <Link
-          to="/"
-          className="font-display text-xl font-bold tracking-tight text-[#F4F5F7] whitespace-nowrap shrink-0"
-        >
-          {SITE_CONFIG.brandName}
+        {/* Zone 1: Brand Lockup */}
+        <Link to="/" aria-label="Acendio Home" className="shrink-0">
+          <BrandMark variant="horizontal" tone="light" size="md" />
         </Link>
 
-        {/* Zone 2: Concise Single-Line Navigation Links */}
+        {/* Zone 2: Concise Single-Line Navigation */}
         <nav aria-label="Primary navigation" className="hidden items-center gap-7 lg:flex">
           {TOP_NAV_LINKS.map((item) => {
             if (item.label === 'Services') {
+              const isSvcActive = location.pathname.startsWith('/services');
               return (
                 <div key={item.to} ref={dropdownRef} className="relative">
                   <button
@@ -64,46 +61,46 @@ export function Navbar({ onOpenBookModal }: NavbarProps) {
                     aria-haspopup="true"
                     onClick={() => setServicesOpen((prev) => !prev)}
                     className={`inline-flex min-h-[40px] items-center gap-1 text-sm font-medium transition-colors whitespace-nowrap shrink-0 ${
-                      location.pathname.startsWith('/services')
-                        ? 'text-[#22D3EE]'
-                        : 'text-[#9AA0AE] hover:text-[#F4F5F7]'
+                      isSvcActive
+                        ? 'text-[#0E0F12] underline decoration-[#FF5A1F] decoration-2 underline-offset-8'
+                        : 'text-[#5C5F66] hover:text-[#0E0F12]'
                     }`}
                   >
                     <span>Services</span>
                     <ChevronDown
                       className={`h-4 w-4 transition-transform duration-150 ${
-                        servicesOpen ? 'rotate-180 text-[#22D3EE]' : ''
+                        servicesOpen ? 'rotate-180 text-[#FF5A1F]' : ''
                       }`}
                       aria-hidden="true"
                     />
                   </button>
 
                   {servicesOpen && (
-                    <div className="absolute left-1/2 top-full mt-2 w-[560px] -translate-x-1/2 rounded-2xl border border-white/12 bg-[#12141C] p-4 shadow-2xl">
-                      <div className="grid grid-cols-2 gap-2">
+                    <div className="absolute left-1/2 top-full mt-2 w-[560px] -translate-x-1/2 border border-[#0E0F12] bg-[#FFFFFF] p-4">
+                      <div className="grid grid-cols-2 divide-y divide-[#D9D4C7]/60">
                         {SERVICE_NAV_LINKS.map((service) => (
                           <Link
                             key={service.to}
                             to={service.to}
-                            className="rounded-xl p-3 transition-colors hover:bg-white/5"
+                            className="p-3 transition-colors hover:bg-[#F4F1EA]"
                           >
-                            <p className="text-sm font-semibold text-[#F4F5F7]">
+                            <p className="text-sm font-semibold text-[#0E0F12]">
                               {service.label}
                             </p>
-                            <p className="mt-1 text-xs leading-relaxed text-[#9AA0AE]">
+                            <p className="mt-1 text-xs leading-relaxed text-[#5C5F66]">
                               {service.description}
                             </p>
                           </Link>
                         ))}
                         <Link
                           to="/services"
-                          className="flex flex-col justify-center rounded-xl border border-white/10 bg-[#0A0B10] p-3 transition-colors hover:border-[#22D3EE]/40"
+                          className="flex flex-col justify-center bg-[#0E0F12] p-3 text-[#F4F1EA] transition-colors hover:bg-[#1E2026]"
                         >
-                          <p className="text-sm font-semibold text-[#22D3EE]">
+                          <p className="text-sm font-semibold text-[#FF5A1F]">
                             View All Services →
                           </p>
-                          <p className="mt-1 text-xs text-[#9AA0AE]">
-                            Compare capabilities &amp; custom growth stacks.
+                          <p className="mt-1 text-xs text-[#A5A8B0]">
+                            Compare all seven capabilities and rollout scopes.
                           </p>
                         </Link>
                       </div>
@@ -120,8 +117,8 @@ export function Navbar({ onOpenBookModal }: NavbarProps) {
                 className={({ isActive }) =>
                   `text-sm font-medium transition-colors whitespace-nowrap shrink-0 ${
                     isActive
-                      ? 'text-[#22D3EE]'
-                      : 'text-[#9AA0AE] hover:text-[#F4F5F7]'
+                      ? 'text-[#0E0F12] underline decoration-[#FF5A1F] decoration-2 underline-offset-8'
+                      : 'text-[#5C5F66] hover:text-[#0E0F12]'
                   }`
                 }
               >
@@ -131,7 +128,7 @@ export function Navbar({ onOpenBookModal }: NavbarProps) {
           })}
         </nav>
 
-        {/* Zone 3: Single Primary Action + Mobile Drawer Toggle */}
+        {/* Zone 3: Primary CTA + Mobile Menu Toggle */}
         <div className="flex items-center gap-3 shrink-0">
           <button
             type="button"
@@ -139,16 +136,16 @@ export function Navbar({ onOpenBookModal }: NavbarProps) {
               trackEvent('cta_click', { location: 'navbar' });
               onOpenBookModal();
             }}
-            className="btn-primary-gradient hidden min-h-[40px] items-center justify-center rounded-lg px-4 py-2 text-xs sm:inline-flex whitespace-nowrap shrink-0"
+            className="btn-signal hidden min-h-[40px] items-center justify-center px-4 py-2 text-xs sm:inline-flex whitespace-nowrap shrink-0"
           >
             Book a Strategy Call
           </button>
           <button
             type="button"
-            aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
+            aria-label={mobileOpen ? 'Close navigation menu' : 'Open navigation menu'}
             aria-expanded={mobileOpen}
             onClick={() => setMobileOpen((prev) => !prev)}
-            className="flex min-h-[44px] min-w-[44px] items-center justify-center rounded-lg border border-white/10 text-[#F4F5F7] lg:hidden"
+            className="flex min-h-[44px] min-w-[44px] items-center justify-center border border-[#D9D4C7] bg-[#FFFFFF] text-[#0E0F12] lg:hidden"
           >
             {mobileOpen ? (
               <X className="h-5 w-5" aria-hidden="true" />
@@ -159,52 +156,48 @@ export function Navbar({ onOpenBookModal }: NavbarProps) {
         </div>
       </div>
 
-      {/* Mobile Slide-In Menu */}
+      {/* Full-Screen Mobile Menu */}
       {mobileOpen && (
-        <div className="border-t border-white/10 bg-[#0A0B10] px-4 py-6 lg:hidden">
-          <nav aria-label="Mobile navigation" className="space-y-4">
+        <div className="fixed inset-x-0 top-16 bottom-0 z-50 overflow-y-auto border-t border-[#D9D4C7] bg-[#F4F1EA] px-5 py-6 lg:hidden">
+          <nav aria-label="Mobile navigation" className="space-y-6">
             <div>
               <Link
                 to="/services"
-                className="block py-2 text-base font-semibold text-[#F4F5F7]"
+                className="block border-b border-[#D9D4C7] py-3 font-editorial text-2xl font-semibold text-[#0E0F12]"
               >
-                Services Overview
+                Services
               </Link>
-              <div className="mt-1 space-y-1 pl-3">
+              <div className="mt-2 divide-y divide-[#D9D4C7]/70">
                 {SERVICE_NAV_LINKS.map((s) => (
                   <Link
                     key={s.to}
                     to={s.to}
-                    className="block py-2 text-sm text-[#9AA0AE] hover:text-[#22D3EE]"
+                    className="block py-3 text-sm font-medium text-[#0E0F12] hover:text-[#FF5A1F]"
                   >
                     {s.label}
                   </Link>
                 ))}
               </div>
             </div>
-            <div className="space-y-1 border-t border-white/10 pt-3">
+
+            <div className="divide-y divide-[#D9D4C7] border-t border-[#0E0F12]">
               {TOP_NAV_LINKS.filter((l) => l.label !== 'Services').map((item) => (
                 <Link
                   key={item.to}
                   to={item.to}
-                  className="block py-2.5 text-base font-medium text-[#F4F5F7] hover:text-[#22D3EE]"
+                  className="block py-3.5 text-base font-semibold text-[#0E0F12]"
                 >
                   {item.label}
                 </Link>
               ))}
-              <Link
-                to="/faq"
-                className="block py-2.5 text-base font-medium text-[#F4F5F7] hover:text-[#22D3EE]"
-              >
+              <Link to="/faq" className="block py-3.5 text-base font-semibold text-[#0E0F12]">
                 FAQ
               </Link>
-              <Link
-                to="/contact"
-                className="block py-2.5 text-base font-medium text-[#F4F5F7] hover:text-[#22D3EE]"
-              >
+              <Link to="/contact" className="block py-3.5 text-base font-semibold text-[#0E0F12]">
                 Contact Us
               </Link>
             </div>
+
             <div className="pt-2">
               <button
                 type="button"
@@ -213,7 +206,7 @@ export function Navbar({ onOpenBookModal }: NavbarProps) {
                   trackEvent('cta_click', { location: 'mobile_menu' });
                   onOpenBookModal();
                 }}
-                className="btn-primary-gradient min-h-[48px] w-full rounded-lg px-5 py-3 text-sm"
+                className="btn-signal min-h-[48px] w-full px-5 py-3 text-sm"
               >
                 Book a Free Strategy Call
               </button>

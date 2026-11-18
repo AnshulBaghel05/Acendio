@@ -14,6 +14,8 @@ export interface BlogSection {
   };
 }
 
+export type BlogDiagramType = 'voice-recovery' | 'speed-to-lead' | 'review-flywheel';
+
 export interface BlogPost {
   slug: string;
   title: string;
@@ -24,9 +26,10 @@ export interface BlogPost {
   authorRole: string;
   publishedDate: string;
   modifiedDate: string;
+  displayPublishedDate: string;
+  displayModifiedDate: string;
   readTime: string;
-  coverImage: string;
-  coverAlt: string;
+  diagramType: BlogDiagramType;
   excerpt: string;
   toc: BlogTocItem[];
   sections: BlogSection[];
@@ -35,7 +38,7 @@ export interface BlogPost {
 export const BLOG_POSTS: BlogPost[] = [
   {
     slug: 'missed-call-text-back-and-ai-receptionists-for-local-businesses',
-    title: 'How 24/7 AI Voice Receptionists Eliminate Missed-Call Revenue Leakage',
+    title: 'How 24/7 AI Voice Receptionists Eliminate Missed-Call Revenue Loss',
     metaTitle: 'AI Voice Receptionists & Missed Call Text-Back | Acendio',
     metaDescription:
       'Learn how local businesses use 24/7 AI voice receptionists and missed call text-back to qualify callers, book appointments, and log CRM leads.',
@@ -44,14 +47,14 @@ export const BLOG_POSTS: BlogPost[] = [
     authorRole: 'Automation Architecture',
     publishedDate: '2026-10-14',
     modifiedDate: '2026-11-10',
+    displayPublishedDate: '14 Oct 2026',
+    displayModifiedDate: '10 Nov 2026',
     readTime: '9 min read',
-    coverImage: '/src/assets/images/blog_ai_voice_system_1795014085686.jpg',
-    coverAlt:
-      'Matte black acoustic hardware and dark frosted glass reflecting indigo and cyan studio light',
+    diagramType: 'voice-recovery',
     excerpt:
       'Why voicemail fails local service businesses—and how pairing natural AI voice reception with instant missed-call text-back captures demand around the clock.',
     toc: [
-      { id: 'hidden-leak', label: 'The Operational Cost of Unanswered Inbound Calls' },
+      { id: 'hidden-leak', label: 'The Real Cost of Unanswered Inbound Calls' },
       { id: 'voicemail-vs-ai', label: 'Why Voicemail and Generic Call Centers Fall Short' },
       { id: 'anatomy-ai-receptionist', label: 'Anatomy of a Production AI Voice Receptionist' },
       { id: 'missed-call-text-back', label: 'Pairing Voice With Instant Missed-Call Text-Back' },
@@ -61,20 +64,20 @@ export const BLOG_POSTS: BlogPost[] = [
     sections: [
       {
         id: 'hidden-leak',
-        heading: 'The Operational Cost of Unanswered Inbound Calls',
+        heading: 'The Real Cost of Unanswered Inbound Calls',
         paragraphs: [
           'Across home services, clinics, real estate teams, and hospitality venues, the phone remains the moment of highest commercial intent. A prospect who picks up the phone is rarely browsing casually; they have an immediate problem to solve, a consultation to schedule, or an urgent question standing between them and a booking.',
           'Yet the very moments a business is busiest delivering great work are the exact moments inbound calls go unanswered. Technicians are on ladders or driving between appointments. Front-desk coordinators are checking in arriving patients. Real estate agents are walking clients through showings. Restaurants are managing peak dinner service. Even a well-staffed office experiences overlapping calls at nine in the morning or right after lunch.',
-          'When marketing teams invest in Google Ads, local SEO, and Meta campaigns without fixing inbound call coverage, paid acquisition simply amplifies the leak. Every ring that rolls into an unmonitored voicemail box represents acquisition effort handed straight to the next provider listed on Google Maps. Owners often assume they need higher ad budgets to grow, when capturing the calls they already generate would fill open calendar capacity first.',
+          'When marketing teams invest in Google Ads, local SEO, and Meta campaigns without fixing inbound call coverage, paid acquisition simply amplifies the waste. Every ring that rolls into an unmonitored voicemail box represents acquisition effort handed straight to the next provider listed on Google Maps. Owners often assume they need higher ad budgets to grow, when capturing the calls they already generate would fill open calendar capacity first.',
         ],
       },
       {
         id: 'voicemail-vs-ai',
         heading: 'Why Voicemail and Generic Call Centers Fall Short',
         paragraphs: [
-          'For decades, small and mid-sized operators faced two imperfect options for overflow and after-hours coverage: standard voicemail or outsourced human answering services. Voicemail places all the burden back on a rushed buyer—forcing them to state their name, repeat their phone number, describe their issue, and wait blindly for a callback while competitors answer live.',
+          'For decades, small and mid-sized businesses faced two imperfect options for overflow and after-hours coverage: standard voicemail or outsourced human answering services. Voicemail places all the burden back on a rushed buyer—forcing them to state their name, repeat their phone number, describe their issue, and wait blindly for a callback while competitors answer live.',
           'Traditional answering services solve the greeting problem, yet often introduce friction of their own. Agents reading from static scripts cannot inspect your real-time calendar availability, struggle with industry-specific diagnostic questions, rarely update custom fields inside your CRM cleanly, and stall during sudden call spikes caused by weather events or seasonal promotions. Callers end up feeling like they reached a generic message desk rather than your business.',
-          'Modern AI voice receptionists bridge that gap when engineered as part of a connected CRM workflow rather than a standalone novelty widget. Because the agent sits directly on top of your scheduling calendar and business rules, it acts like a disciplined front-desk coordinator that never puts callers on hold, speaks clearly, and records every detail consistently.',
+          'Modern AI voice receptionists bridge that gap when built as part of a connected CRM workflow rather than a standalone novelty widget. Because the agent sits directly on top of your scheduling calendar and business rules, it acts like a disciplined front-desk coordinator that never puts callers on hold, speaks clearly, and records every detail consistently.',
         ],
         internalLink: {
           label: 'Explore Acendio 24/7 AI Receptionist Architecture',
@@ -85,7 +88,7 @@ export const BLOG_POSTS: BlogPost[] = [
         id: 'anatomy-ai-receptionist',
         heading: 'Anatomy of a Production AI Voice Receptionist',
         paragraphs: [
-          'A reliable AI voice receptionist for small business relies on four tightly integrated layers working together on every call. First is grounded knowledge: the agent is trained strictly on your verified services, operating hours, geographic service areas across [TARGET REGIONS], and policy boundaries so it answers routine questions accurately without improvising or making unauthorized promises.',
+          'A reliable AI voice receptionist for small business relies on four tightly connected layers working together on every call. First is grounded knowledge: the agent is trained strictly on your verified services, operating hours, geographic service areas, and policy boundaries so it answers routine questions accurately without improvising or making unauthorized promises.',
           'Second is structured qualification. Rather than rushing straight to a booking link for an out-of-area or unsupported request, the receptionist asks concise, natural follow-up questions—confirming property address, service category, urgency level, or preferred provider. That ensures your calendar only fills with prospects you can genuinely serve.',
           'Third is live calendar execution and smart escalation. Once qualified, the receptionist reads real-time open windows from your connected calendar and confirms the appointment on the spot. If a caller presents an urgent dispatch emergency or requests a live specialist, call-transfer rules connect them immediately to an on-call team member with a text summary.',
           'Fourth is clean CRM hygiene. Every completed call writes an audio recording, full verbatim transcript, structured summary, and lead stage update directly into GoHighLevel so your team begins every follow-up with full context instead of asking callers to repeat themselves.',
@@ -116,7 +119,7 @@ export const BLOG_POSTS: BlogPost[] = [
         paragraphs: [
           'Effective voice workflows adapt to the rhythm of each industry. In home services such as HVAC, plumbing, or roofing, the AI receptionist immediately distinguishes between routine estimate requests and urgent property emergencies—capturing street address and issue details before routing dispatches or booking next-day estimator windows.',
           'In clinics and private practices, the receptionist handles hours, location directions, and pre-visit preparation FAQs while guiding new patients into initial consultation slots—relieving front-desk coordinators from juggling phone hold queues during morning check-in rushes. In real estate and hospitality, after-hours property inquiries and private event bookings receive immediate qualification rather than waiting until morning.',
-          'Across every vertical in [LOCATION] and [TARGET REGIONS], the governing principle remains identical: preserve a calm, helpful human standard of responsiveness even when your live team is fully occupied.',
+          'Across every service vertical, the governing principle remains identical: preserve a calm, helpful human standard of responsiveness even when your live team is fully occupied.',
         ],
       },
       {
@@ -139,20 +142,20 @@ export const BLOG_POSTS: BlogPost[] = [
     title: 'Speed-to-Lead Architecture: Building an Instant Follow-Up Pipeline in GoHighLevel',
     metaTitle: 'Speed-to-Lead CRM Automation Architecture | Acendio',
     metaDescription:
-      'Discover how to engineer instant speed-to-lead, multi-channel nurture, and no-show reduction in GoHighLevel so paid and organic leads convert cleanly.',
+      'Discover how to build instant speed-to-lead, multi-channel nurture, and no-show reduction in GoHighLevel so paid and organic leads convert cleanly.',
     category: 'CRM & Automation',
     author: 'Acendio Systems Team',
     authorRole: 'Revenue Operations',
     publishedDate: '2026-10-28',
     modifiedDate: '2026-11-12',
+    displayPublishedDate: '28 Oct 2026',
+    displayModifiedDate: '12 Nov 2026',
     readTime: '9 min read',
-    coverImage: '/src/assets/images/blog_conversion_architecture_1795014086744.jpg',
-    coverAlt:
-      'Dark geometric glass architectural facade reflecting twilight indigo and cyan sky',
+    diagramType: 'speed-to-lead',
     excerpt:
       'Why lead response speed decides who wins the appointment—and a practical blueprint for connecting web forms, ads, SMS, and calendars inside GoHighLevel.',
     toc: [
-      { id: 'speed-advantage', label: 'Why Response Latency Quietly Destroys Ad Efficiency' },
+      { id: 'speed-advantage', label: 'Why Response Delay Quietly Hurts Ad Returns' },
       { id: 'attribution-first', label: 'Capturing Clean UTM Attribution Before the First Message' },
       { id: 'instant-sequence', label: 'Designing the First Five Minutes of Follow-Up' },
       { id: 'multi-day-nurture', label: 'Multi-Channel Nurture Without Sounding Automated' },
@@ -162,10 +165,10 @@ export const BLOG_POSTS: BlogPost[] = [
     sections: [
       {
         id: 'speed-advantage',
-        heading: 'Why Response Latency Quietly Destroys Ad Efficiency',
+        heading: 'Why Response Delay Quietly Hurts Ad Returns',
         paragraphs: [
           'Business owners frequently evaluate marketing agencies solely on lead volume or cost per click, overlooking what happens in the minutes immediately following a form submission. Yet buyers searching locally rarely fill out a single form and close their browser. They open three or four tabs, submit two inquiries, and book with whichever qualified business engages them first.',
-          'When a web inquiry triggers only an email notification to a shared inbox, delays are inevitable. A sales coordinator is on another call, a technician is driving, or the inquiry arrives at eight in the evening. By the next morning, the buyer has forgotten which company they contacted or already scheduled an estimate elsewhere. Meanwhile, the ad platform gets blamed for "low-quality leads" when the bottleneck actually occurred after the click.',
+          'When a web inquiry triggers only an email notification to a shared inbox, delays are inevitable. A sales coordinator is on another call, a technician is driving, or the inquiry arrives at eight in the evening. By the next morning, the buyer has forgotten which company they contacted or already scheduled an estimate elsewhere. Meanwhile, the ad platform gets blamed for low-quality leads when the bottleneck actually occurred after the click.',
           'Fixing speed-to-lead rarely requires hiring additional office headcount. It requires treating lead intake as an automated software pipeline rather than a manual inbox task.',
         ],
       },
@@ -178,7 +181,7 @@ export const BLOG_POSTS: BlogPost[] = [
           'Pairing clean webhook payloads with an embedded form fallback ensures reliability as well: if a browser extension or temporary network issue interrupts a direct submission, visitors still have an immediate path to complete their request without losing data.',
         ],
         internalLink: {
-          label: 'Review Acendio Website & Attribution Engineering',
+          label: 'Review Acendio Website & Attribution Setup',
           to: '/services/website-development-maintenance',
         },
       },
@@ -230,7 +233,7 @@ export const BLOG_POSTS: BlogPost[] = [
           'Even the best automation degrades if CRM pipeline stages become cluttered with outdated test leads or unupdated deals. Establish clear stage definitions—New Lead, Contacted, Discovery Booked, Proposal Sent, Won, and Nurture—and review aging opportunities every week.',
           'Define explicit ownership rules for every stage transition so automation and sales staff never work against each other. When a coordinator moves a card from New Lead to Contacted, automated speed-to-lead nudges pause automatically and a scheduled task reminds the owner to log call notes before the end of the business day. If a prospect requests a proposal, moving the card into Proposal Sent starts a polite check-in sequence three days later rather than leaving the follow-up to memory.',
           'Equally important is measuring stage-to-stage conversion without vanity clutter. Rather than staring at raw form submission counts alone, leadership should track how many inbound contacts move into Discovery Booked, how reliably booked prospects attend their scheduled time, and how quickly proposals reach clear resolution.',
-          'When your website forms, AI receptionist, paid ads, and team inbox all report into one disciplined GoHighLevel pipeline, leadership gains an honest, real-time view of marketing performance and sales capacity across [TARGET REGIONS]. Teams eliminate duplicate data entry, marketing campaigns receive accurate feedback loops, and every dollar invested in customer acquisition works measurably harder.',
+          'When your website forms, AI receptionist, paid ads, and team inbox all report into one disciplined GoHighLevel pipeline, leadership gains an honest, real-time view of marketing performance and sales capacity.',
         ],
         bullets: [
           'Clear stage definitions with automated stop-on-reply safeguards',
@@ -256,10 +259,10 @@ export const BLOG_POSTS: BlogPost[] = [
     authorRole: 'Search & Conversion Strategy',
     publishedDate: '2026-11-05',
     modifiedDate: '2026-11-15',
+    displayPublishedDate: '05 Nov 2026',
+    displayModifiedDate: '15 Nov 2026',
     readTime: '9 min read',
-    coverImage: '/src/assets/images/blog_reputation_growth_1795014099488.jpg',
-    coverAlt:
-      'Minimalist obsidian surface with brushed titanium geometric monoliths under cool indigo lighting',
+    diagramType: 'review-flywheel',
     excerpt:
       'Why website conversion rate and Google review velocity reinforce each other—and how to connect both into a self-sustaining local growth loop.',
     toc: [
@@ -275,8 +278,8 @@ export const BLOG_POSTS: BlogPost[] = [
         id: 'search-decision-loop',
         heading: 'How Local Buyers Actually Evaluate Service Providers',
         paragraphs: [
-          'Local buyers rarely follow a neat straight line from a single ad click to checkout. When someone in [LOCATION] searches for a home contractor, clinic, brokerage, or specialty service, they typically bounce between the Google Map Pack, your Google Business Profile reviews, and your mobile website in under two minutes.',
-          'If your website looks dated, loads slowly, or hides clear contact options, visitors doubt your operational rigor—even if your actual field work is exemplary. Conversely, if your website looks sharp and persuasive, yet your Google profile shows only a handful of aging reviews with unanswered comments, skepticism creeps back in and drives buyers back to the map results.',
+          'Local buyers rarely follow a neat straight line from a single ad click to checkout. When someone searches for a home contractor, clinic, brokerage, or specialty service, they typically bounce between the Google Map Pack, your Google Business Profile reviews, and your mobile website in under two minutes.',
+          'If your website looks dated, loads slowly, or hides clear contact options, visitors doubt your reliability—even if your actual field work is exemplary. Conversely, if your website looks sharp and persuasive, yet your Google profile shows only a handful of aging reviews with unanswered comments, skepticism creeps back in and drives buyers back to the map results.',
           'When you strengthen both assets together, each reinforces the other. Strong Google ratings raise click-through rates onto your website, and a clear, fast website converts that higher-intent traffic into booked appointments—creating more completed jobs that generate fresh reviews.',
         ],
       },
@@ -284,8 +287,8 @@ export const BLOG_POSTS: BlogPost[] = [
         id: 'website-pillars',
         heading: 'Four Non-Negotiable Elements of a Conversion Website',
         paragraphs: [
-          'A conversion-focused business website does not rely on heavy visual gimmicks or cluttered animations. Instead, four foundational engineering choices carry almost all the conversion weight on desktop and mobile devices alike.',
-          'First, immediate clarity above the fold: within three seconds on a mobile screen, a visitor must see exactly what you do, who you serve across [TARGET REGIONS], and a high-contrast button to book a call or request a proposal. Second, technical speed and layout stability: compressed modern images, minimal render-blocking scripts, and clean typography keep Core Web Vitals healthy so paid clicks do not bounce before reading your offer.',
+          'A conversion-focused business website does not rely on heavy visual gimmicks or cluttered animations. Instead, four foundational choices carry almost all the conversion weight on desktop and mobile devices alike.',
+          'First, immediate clarity above the fold: within three seconds on a mobile screen, a visitor must see exactly what you do, who you serve, and a high-contrast button to book a call or request a proposal. Second, technical speed and layout stability: compressed modern images, minimal render-blocking scripts, and clean typography keep Core Web Vitals healthy so paid clicks do not bounce before reading your offer.',
           'Third, local and technical SEO architecture: dedicated service pages targeting distinct buyer intents, clean URL structures, semantic HTML5 sections, and accurate LocalBusiness and Service JSON-LD schema markup. Fourth, omnipresent low-friction contact paths: inline validated forms, sticky mobile call/book controls, and clean calendar access without intrusive popups blocking initial reading.',
         ],
         internalLink: {
@@ -297,8 +300,8 @@ export const BLOG_POSTS: BlogPost[] = [
         id: 'review-velocity',
         heading: 'Why Review Recency and Responsiveness Matter',
         paragraphs: [
-          'Search algorithms and human buyers look beyond total star score. Recency—seeing steady feedback posted this week and this month—signals an active, dependable operation. Equally important is visible owner engagement: thoughtful replies to both praise and constructive feedback demonstrate accountability.',
-          'Manually asking customers at checkout or remembering to email a link on Friday afternoon fails the moment business gets busy. Automated review requests solve consistency by tying outreach directly to operational milestones, such as marking a job complete or closing an invoice in your CRM.',
+          'Search algorithms and human buyers look beyond total star score. Recency—seeing steady feedback posted this week and this month—signals an active, dependable business. Equally important is visible owner engagement: thoughtful replies to both praise and constructive feedback demonstrate accountability.',
+          'Manually asking customers at checkout or remembering to email a link on Friday afternoon fails the moment business gets busy. Automated review requests solve consistency by tying outreach directly to real milestones, such as marking a job complete or closing an invoice in your CRM.',
           'Equally vital is clean feedback routing. Giving customers a simple, private way to alert management if anything felt off during their visit lets your team fix issues rapidly while satisfied clients move smoothly to Google without extra login friction.',
         ],
         internalLink: {
@@ -310,7 +313,7 @@ export const BLOG_POSTS: BlogPost[] = [
         id: 'connecting-loop',
         heading: 'Connecting Web Bookings to Post-Service Review Automation',
         paragraphs: [
-          'The real operational breakthrough happens when your website, CRM, and review engine share one contact record. A prospect discovers you via Google Search or Meta Ads, submits a request on your conversion website, and books a consultation.',
+          'The real breakthrough happens when your website, CRM, and review engine share one contact record. A prospect discovers you via Google Search or Meta Ads, submits a request on your conversion website, and books a consultation.',
           'After your team delivers the service and updates the CRM stage to Completed, an automated workflow waits an optimal window—typically a few hours for urgent services or the next morning for consultations—and sends a concise, branded SMS and email review invitation.',
           'Once submitted, AI-assisted reply drafting prepares a customized response referencing the customer’s feedback for quick approval, while approved positive highlights can be curated into updated website proof sections—strengthening conversion for the next wave of visitors.',
         ],
@@ -325,9 +328,9 @@ export const BLOG_POSTS: BlogPost[] = [
         id: 'gbp-alignment',
         heading: 'Aligning Your Website Structure With Google Business Profile',
         paragraphs: [
-          'Consistency between your Google Business Profile and your website reinforces local relevance signals. Ensure your Name, Address, and Phone (NAP) block in your website footer and contact page matches your profile character for character, link directly to relevant service landing pages rather than a generic homepage where appropriate, and mirror the exact service categories you perform in [LOCATION].',
-          'Each primary service you list on your Google profile deserves a dedicated page on your website with clear explanations of who it serves, the bottlenecks it solves, how the engagement unfolds, and region-specific context across [TARGET REGIONS]. Embedding clean FAQ sections with structured FAQPage schema on core service pages also helps search engines and AI answer engines understand your exact scope, service area, and process.',
-          'Avoid publishing thin duplicate city pages that swap out only a neighborhood name. Instead, build genuinely useful service pages, publish helpful local case-framework articles, and keep your Google Business Profile active with updated project photos, accurate holiday hours, and prompt responses to incoming questions.',
+          'Consistency between your Google Business Profile and your website reinforces local relevance signals. Ensure your Name, Address, and Phone (NAP) block in your website footer and contact page matches your profile character for character, link directly to relevant service landing pages rather than a generic homepage where appropriate, and mirror the exact service categories you perform.',
+          'Each primary service you list on your Google profile deserves a dedicated page on your website with clear explanations of who it serves, the bottlenecks it solves, and how the engagement unfolds. Embedding clean FAQ sections with structured FAQPage schema on core service pages also helps search engines and AI answer engines understand your exact scope and process.',
+          'Avoid publishing thin duplicate city pages that swap out only a neighborhood name. Instead, build genuinely useful service pages, publish practical local guides, and keep your Google Business Profile active with updated photos, accurate holiday hours, and prompt responses to incoming questions.',
         ],
       },
       {
@@ -336,7 +339,7 @@ export const BLOG_POSTS: BlogPost[] = [
         paragraphs: [
           'Digital growth assets behave like physical equipment: neglected websites degrade as browsers, search guidelines, and tracking scripts change. Ongoing website maintenance—covering automated backups, security patches, uptime alerts, broken-link checks, SSL monitoring, and seasonal service updates—ensures your conversion engine never silently breaks during peak season.',
           'A single broken contact form or expired webhook token during a busy ad campaign can waste weeks of paid media budget before anyone notices. Scheduled weekly verification of forms, call-tracking routing, calendar embeds, and analytics events protects every step of your funnel.',
-          'Combined with active review automation and clean CRM follow-up, your digital presence compounds steadily every quarter—reducing dependence on constant ad spend alone and turning local visibility into a durable competitive moat across [TARGET REGIONS]. Businesses that maintain fast, trustworthy websites alongside consistent review velocity steadily lower acquisition friction across search, social ads, and referrals alike. Teams that treat web engineering and customer reputation as one unified habit consistently capture stronger local demand year-round.',
+          'Combined with active review automation and clean CRM follow-up, your digital presence compounds steadily every quarter—reducing dependence on constant ad spend alone and turning local visibility into a durable competitive edge. Businesses that maintain fast, trustworthy websites alongside consistent review velocity steadily lower acquisition friction across search, social ads, and referrals alike.',
         ],
         bullets: [
           'Automated daily backups, security updates, and continuous uptime monitoring',

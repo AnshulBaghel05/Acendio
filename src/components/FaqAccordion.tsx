@@ -11,14 +11,14 @@ export function FaqAccordion({ items, idPrefix = 'faq' }: FaqAccordionProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <div className="divide-y divide-white/10 rounded-xl border border-white/10 bg-[#12141C]">
+    <div className="divide-y divide-[#D9D4C7] border-y border-[#D9D4C7] bg-[#FFFFFF]">
       {items.map((item, idx) => {
         const isOpen = openIndex === idx;
         const panelId = `${idPrefix}-panel-${idx}`;
         const buttonId = `${idPrefix}-button-${idx}`;
 
         return (
-          <div key={item.question} className="px-6 py-1">
+          <div key={item.question} className="px-5 py-1 sm:px-6">
             <h3>
               <button
                 id={buttonId}
@@ -26,12 +26,17 @@ export function FaqAccordion({ items, idPrefix = 'faq' }: FaqAccordionProps) {
                 aria-expanded={isOpen}
                 aria-controls={panelId}
                 onClick={() => setOpenIndex(isOpen ? null : idx)}
-                className="flex min-h-[52px] w-full items-center justify-between gap-4 py-4 text-left text-base font-semibold text-[#F4F5F7] transition-colors hover:text-[#22D3EE] focus-visible:outline-none"
+                className="flex min-h-[54px] w-full items-center justify-between gap-4 py-4 text-left text-base font-semibold text-[#0E0F12] transition-colors hover:text-[#FF5A1F] focus-visible:outline-none"
               >
-                <span>{item.question}</span>
+                <span className="flex items-baseline gap-3">
+                  <span className="font-mono-tabular text-xs font-medium text-[#FF5A1F]">
+                    {String(idx + 1).padStart(2, '0')}
+                  </span>
+                  <span>{item.question}</span>
+                </span>
                 <ChevronDown
-                  className={`h-5 w-5 shrink-0 text-[#9AA0AE] transition-transform duration-200 ${
-                    isOpen ? 'rotate-180 text-[#22D3EE]' : ''
+                  className={`h-5 w-5 shrink-0 text-[#5C5F66] transition-transform duration-200 ${
+                    isOpen ? 'rotate-180 text-[#FF5A1F]' : ''
                   }`}
                   aria-hidden="true"
                 />
@@ -42,7 +47,7 @@ export function FaqAccordion({ items, idPrefix = 'faq' }: FaqAccordionProps) {
               role="region"
               aria-labelledby={buttonId}
               hidden={!isOpen}
-              className="pb-5 pr-8 text-sm leading-relaxed text-[#9AA0AE]"
+              className="pb-5 pl-7 pr-6 text-[15px] leading-relaxed text-[#5C5F66]"
             >
               {item.answer}
             </div>

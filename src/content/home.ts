@@ -1,7 +1,7 @@
 export interface ProblemItem {
   id: string;
   title: string;
-  leakageType: string;
+  category: string;
   description: string;
   remedyLink: string;
   remedyLabel: string;
@@ -26,192 +26,217 @@ export interface FaqItem {
 
 export const HOME_CONTENT = {
   seo: {
-    title: 'Acendio | AI Websites, AI Receptionists & Growth Systems',
+    title: 'Acendio | Websites, AI Receptionists & Growth Systems',
     description:
-      'Acendio is an AI agency delivering conversion websites, 24/7 AI receptionists, Google & Meta ads, review automation, and CRM workflows.',
+      'Acendio builds conversion websites, 24/7 AI receptionists, Google & Meta ads, review workflows, and CRM automation for growing businesses.',
   },
   hero: {
-    kicker: 'AI & Digital Growth Systems for [TARGET REGIONS]',
-    h1: 'AI-Powered Websites, Receptionists & Ads That Turn Missed Opportunities Into Booked Revenue',
+    eyebrow: 'AI & Digital Growth Agency',
+    h1: 'Websites, AI Receptionists & Paid Ads That Turn Missed Calls Into Booked Revenue',
     subheadline:
-      'We install connected websites, 24/7 AI voice and chat agents, paid acquisition, and CRM automation so every inbound lead gets answered and booked.',
+      'We connect your website, 24/7 AI voice and chat coverage, ad campaigns, and GoHighLevel CRM so every qualified inquiry gets answered and scheduled.',
     primaryCta: 'Book a Free Strategy Call',
     secondaryCta: 'Explore Services',
-    trustItems: [
-      'Single partner for web, AI, ads, and CRM',
-      'Built on verifiable operational workflows',
-      'Serving owners & operators in [TARGET REGIONS]',
+    methodNotes: [
+      'One partner for web, AI, ads, and CRM',
+      'Built directly inside your GoHighLevel account',
+      'Every lead tracked from click to booked slot',
     ],
   },
   problems: {
-    eyebrow: 'Operational Revenue Leakage',
-    title: 'Where Growing Businesses Silently Lose Qualified Demand',
+    eyebrow: 'Where Demand Drops Off',
+    title: 'Three Gaps Costing Local Businesses Qualified Bookings',
     subtitle:
-      'Most local and regional companies do not have a demand shortage. They lose ready-to-buy prospects through disconnected systems and delayed responses.',
+      'Most growing companies do not lack buyer interest. They lose ready prospects between the first click, the ringing phone, and the follow-up.',
     items: [
       {
         id: 'missed-calls',
-        title: 'Unanswered Calls & Voicemail Dead Ends',
-        leakageType: 'Inbound Voice Leakage',
+        title: 'Calls Rolling to Voicemail During Busy Hours',
+        category: 'Voice Coverage',
         description:
-          'When prospects call during busy job hours, client appointments, or after closing, voicemail rarely converts. Without immediate voice coverage or missed call text-back, buyers dial the next provider on Google.',
+          'When crews are on jobs or front desks are helping in-person clients, callers rarely leave a voicemail. Without live AI voice answering or instant text-back, buyers dial the next listing on Google.',
         remedyLink: '/services/ai-receptionist',
         remedyLabel: 'See 24/7 AI Receptionist',
       },
       {
         id: 'slow-follow-up',
-        title: 'Delayed Lead Follow-Up & Stalled Pipelines',
-        leakageType: 'Speed-to-Lead Leakage',
+        title: 'Web Leads Waiting Hours for a Human Reply',
+        category: 'Speed to Lead',
         description:
-          'Web forms and ad leads sitting in an unmonitored inbox cool down rapidly. Manual follow-up breaks down when your team is focused on fulfillment, leaving paid clicks unbooked.',
+          'Form fills and social ad inquiries sitting in an unmonitored inbox go cold fast. Manual callbacks break down whenever your team gets pulled into fulfillment.',
         remedyLink: '/services/crm-lead-follow-up-automation',
         remedyLabel: 'See CRM Follow-Up Automation',
       },
       {
         id: 'weak-reputation-outdated-site',
-        title: 'Weak Google Reputation & Friction-Heavy Websites',
-        leakageType: 'Conversion & Trust Leakage',
+        title: 'Friction-Heavy Websites & Quiet Google Profiles',
+        category: 'Conversion & Trust',
         description:
-          'Slow mobile pages, unclear service positioning, and outdated Google Business Profiles reduce conversion before a prospect ever contacts you—lowering ad efficiency and organic visibility simultaneously.',
+          'Slow mobile pages, unclear service menus, and outdated Google reviews hurt conversion before a prospect ever reaches out—lowering both organic calls and paid ad returns.',
         remedyLink: '/services/website-development-maintenance',
         remedyLabel: 'See Website & Review Systems',
       },
     ] as ProblemItem[],
   },
   servicesSection: {
-    eyebrow: 'Core Capabilities',
-    title: 'Connected Growth Infrastructure Under One Roof',
+    eyebrow: 'Capabilities Ledger',
+    title: 'Seven Core Systems Under One Roof',
     subtitle:
-      'Eight modular systems engineered to capture, qualify, book, and retain customers without fragmented vendor handoffs.',
+      'Start with a single bottleneck or deploy the complete acquisition and booking stack.',
   },
   process: {
-    eyebrow: 'Execution Framework',
-    title: 'How Acendio Works',
+    eyebrow: 'How We Work',
+    title: 'From First Audit to Live Booking Pipeline',
     subtitle:
-      'A structured four-phase rollout designed for rapid deployment, clean system integration, and measurable pipeline accountability.',
+      'A clear four-step sequence so your site, ads, AI agents, and CRM launch together without loose ends.',
     steps: [
       {
         step: '01',
         title: 'Discover',
         summary:
-          'We audit your current website, call handling, ad accounts, Google Business Profile, and CRM workflow to locate exact revenue leaks.',
-        deliverable: 'Technical Growth Blueprint & Custom Proposal',
+          'We inspect your website, call handling, ad accounts, Google Business Profile, and CRM stages to locate where prospects drop off.',
+        deliverable: 'Growth Audit & Custom Proposal',
       },
       {
         step: '02',
         title: 'Design & Build',
         summary:
-          'We engineer your conversion website, ad creative suite, tracking architecture, and GoHighLevel pipeline foundation with clean code.',
-        deliverable: 'Production Website, Tracking & Campaign Assets',
+          'We build your conversion site, ad creative suite, tracking pixels, and GoHighLevel pipeline structure cleanly.',
+        deliverable: 'Production Site, Tracking & Ad Assets',
       },
       {
         step: '03',
         title: 'Automate',
         summary:
-          'We deploy your 24/7 AI voice and chat agents, missed-call text-back, speed-to-lead sequences, calendar routing, and review requests.',
-        deliverable: 'Tested End-to-End Lead & Booking Workflows',
+          'We launch 24/7 AI voice and chat agents, missed-call text-back, speed-to-lead sequences, calendar routing, and review requests.',
+        deliverable: 'Tested Lead & Booking Workflows',
       },
       {
         step: '04',
         title: 'Optimize & Scale',
         summary:
-          'We monitor uptime, refine ad creatives, tune AI call transcripts, and expand high-performing channels through clear reporting.',
-        deliverable: 'Ongoing Maintenance & Growth Optimization',
+          'We maintain site uptime, refresh ad creatives, review AI call transcripts, and tune follow-up copy from live CRM reports.',
+        deliverable: 'Ongoing Care & Monthly Attribution',
       },
     ] as ProcessStep[],
   },
+  measurement: {
+    eyebrow: 'How We Measure Results',
+    title: 'Attribution Grounded in Your Calendar, Not Vanity Clicks',
+    subtitle:
+      'We do not publish fabricated case-study numbers or generic percentage claims. Instead, every system we install reports four verifiable facts inside your CRM.',
+    pillars: [
+      {
+        metric: '01 / Response Speed',
+        title: 'Time From Lead Capture to First Touch',
+        detail:
+          'Track exact seconds between form submit, missed call, or ad click and the first SMS, email, or AI voice greeting.',
+      },
+      {
+        metric: '02 / Call Recovery',
+        title: 'Answered & Recovered Inbound Calls',
+        detail:
+          'Review every after-hours and overflow call transcript, caller intent summary, and missed-call text-back conversation.',
+      },
+      {
+        metric: '03 / Source Attribution',
+        title: 'Campaign-to-Appointment Lineage',
+        detail:
+          'Session UTM parameters attach to every contact record so booked calendar slots trace back to the exact ad or page.',
+      },
+      {
+        metric: '04 / Reputation Velocity',
+        title: 'Review Invites vs. Published Replies',
+        detail:
+          'Monitor review requests sent after completed jobs, private feedback alerts, and reply turnaround on Google Business Profile.',
+      },
+    ],
+  },
   differentiators: {
     eyebrow: 'Why Acendio',
-    title: 'Built Like a Systems Team, Not a Traditional Ad Shop',
+    title: 'One Accountable Team Across Web, Voice, Ads & CRM',
     subtitle:
-      'Hiring separate freelancers for web, ads, CRM, and AI creates brittle integrations. Acendio owns the complete customer journey.',
+      'Hiring separate vendors for your website, paid ads, answering service, and CRM creates brittle handoffs. We build and maintain the entire path.',
     items: [
       {
-        title: 'Single Partner Across Web, AI, Ads & CRM',
+        title: 'Unified Stack Ownership',
         description:
-          'Your website, Meta and Google Ads, AI receptionist, review workflows, and CRM pipelines are built as one unified system with zero finger-pointing.',
+          'Your website, Meta and Google Ads, AI receptionist, review engine, and GoHighLevel CRM share one architecture.',
       },
       {
-        title: 'Automation-First Lead Capture',
+        title: 'Speed-to-Lead by Default',
         description:
-          'Every traffic source feeds directly into structured qualification, instant SMS/voice response, and automated calendar booking.',
+          'Every click, call, and chat enters structured qualification with immediate SMS/voice response and direct calendar scheduling.',
       },
       {
-        title: 'Transparent Operational Reporting',
+        title: 'Full Account Portability',
         description:
-          'You see every call log, booked appointment, lead source, and campaign performance metric in clean dashboards tied to pipeline stages.',
+          'You retain ownership of your domain, ad accounts, customer lists, and call transcripts with zero proprietary lock-in.',
       },
       {
-        title: 'Rapid Deployment Without Bloat',
+        title: 'Active Post-Launch Maintenance',
         description:
-          'Proven architectural templates for [LOCATION] and regional businesses let us launch core web and automation systems without drawn-out agency delays.',
-      },
-      {
-        title: 'Ongoing Maintenance & Uptime Care',
-        description:
-          'Sites and automations are actively monitored, backed up, updated, and refined as your offers, seasons, and staffing evolve.',
+          'We monitor site uptime, run daily backups, patch security updates, and update offers as your business evolves.',
       },
     ] as DifferentiatorItem[],
   },
   techStack: {
     eyebrow: 'System Compatibility',
-    title: 'Integrated Across Your Core Revenue Channels',
-    subtitle:
-      'We connect standard operational layers using clean APIs and webhooks—no proprietary lock-in or unverified partner badges.',
+    title: 'Standard Tools Connected Cleanly',
     layers: [
       { category: 'CRM & Pipelines', tools: 'GoHighLevel, Webhooks, Custom REST APIs' },
-      { category: 'Calendar & Scheduling', tools: 'Round-Robin Booking, Google & Outlook Sync' },
-      { category: 'SMS & Two-Way Messaging', tools: 'A2P Compliant SMS, Missed-Call Text Back' },
-      { category: 'Email Automation', tools: 'Transactional & Nurture Sequences, DKIM/SPF' },
-      { category: 'AI Voice & Chat', tools: 'Inbound Voice Reception, Web & Social Chat' },
-      { category: 'Analytics & Attribution', tools: 'GA4, GTM, Server Conversions, UTM Tracking' },
+      { category: 'Calendar & Routing', tools: 'Round-Robin Booking, Google & Outlook Sync' },
+      { category: 'SMS & Voice', tools: 'A2P Compliant SMS, AI Voice, Call Transfer' },
+      { category: 'Email Delivery', tools: 'DKIM/SPF Verified Nurture & Confirmations' },
+      { category: 'Paid Acquisition', tools: 'Google Ads, Meta Ads & Conversions API' },
+      { category: 'Measurement', tools: 'GA4, Google Tag Manager, Session UTMs' },
     ],
   },
   faqs: [
     {
-      question: 'How is an engagement with Acendio structured and scoped?',
+      question: 'How is an engagement with Acendio scoped and priced?',
       answer:
-        'Every engagement is scoped to your goals, so we provide a custom proposal after a short discovery call.',
+        'Every engagement is scoped to your goals; we provide a custom proposal after a short discovery call.',
     },
     {
-      question: 'Who does Acendio work best with?',
+      question: 'Which businesses benefit most from Acendio?',
       answer:
-        'We partner with owners and operators of local and regional service businesses—including real estate teams, home services contractors, clinics, hospitality venues, and local retail—across [TARGET REGIONS].',
+        'We partner with owners and operators of growing local and regional businesses—including real estate teams, home services contractors, private clinics, hospitality venues, and specialty retail.',
     },
     {
-      question: 'Do we have to buy all services together, or can we start with one system?',
+      question: 'Can we start with just one service instead of the full suite?',
       answer:
-        'You can start with a single high-impact priority—such as an AI receptionist, website rebuild, or CRM follow-up automation—and expand into ads or review automation as your capacity grows.',
+        'Yes. Many clients start with their most urgent gap—such as 24/7 AI Receptionist coverage, a website rebuild, or CRM follow-up automation—and add paid ads or review automation once core intake is solid.',
     },
     {
-      question: 'How does the 24/7 AI receptionist handle complex questions or urgent calls?',
+      question: 'How does the AI receptionist handle urgent or complex questions?',
       answer:
-        'Your AI voice receptionist is trained specifically on your service rules, qualifying criteria, and calendar availability. When a caller needs a human specialist or triggers an emergency rule, the system performs a warm transfer or sends an immediate escalation alert with the transcript.',
+        'It follows your approved rules, qualifying criteria, and calendar availability. When a caller needs a live specialist or triggers an emergency escalation rule, the system transfers the call or alerts your team immediately with the full transcript.',
     },
     {
-      question: 'Do you use GoHighLevel for CRM and automation?',
+      question: 'Do we need GoHighLevel to work with Acendio?',
       answer:
-        'Yes. We build CRM pipelines, missed call text-back, speed-to-lead workflows, and review automation inside GoHighLevel so your team has one centralized inbox and calendar system. We also connect external tools via webhooks and custom APIs when required.',
+        'We build CRM pipelines, missed-call text-back, and review automation inside GoHighLevel so everything lives in one inbox and calendar. If you already rely on industry-specific scheduling or dispatch software, we connect them via webhooks or custom APIs.',
     },
     {
-      question: 'What happens if we already have a website or existing ad accounts?',
+      question: 'What if we already have a website and active ad accounts?',
       answer:
-        'We audit your existing assets first. If your current website converts well and meets technical speed and SEO standards, we integrate directly with it. If it creates mobile friction or tracking gaps, we rebuild or optimize it cleanly without losing search equity.',
+        'We audit what you have first. If your current site loads fast and converts well, we wire our tracking, forms, and AI chat directly into it. If it holds back mobile conversion or SEO, we rebuild cleanly while preserving existing search equity.',
     },
     {
-      question: 'How do you track whether ads and website updates produce real bookings?',
+      question: 'How do you keep SMS and review automation compliant?',
       answer:
-        'Every form, call tracking number, chat widget, and calendar embed preserves UTM source parameters into your CRM pipeline so you can trace booked appointments back to the exact campaign and creative.',
+        'Every web form captures explicit TCPA/GDPR-aware consent with timestamps, SMS campaigns use registered A2P messaging with automatic STOP opt-out, and review requests invite honest customer feedback without gating or fabricating reviews.',
     },
     {
-      question: 'How is review automation kept compliant with platform guidelines?',
+      question: 'What happens on the discovery strategy call?',
       answer:
-        'We automate polite post-visit SMS and email requests to every customer, route private operational feedback cleanly to your team when support is needed, and assist with timely, on-brand replies on your Google Business Profile.',
-    },
-    {
-      question: 'What is the first step to get started?',
-      answer:
-        'Book a Free Strategy Call or submit the contact form below. We review your current website, call flow, and lead pipeline ahead of the call so our conversation focuses directly on practical next steps.',
+        'We review your current website, inbound call flow, ad accounts, and follow-up process together, identify the highest-impact gaps, and outline a scoped custom proposal within one business day.',
     },
   ] as FaqItem[],
+  bottomCta: {
+    headline: 'Ready to Turn Missed Calls and Slow Follow-Up Into Booked Work?',
+    subtitle:
+      'Request a custom proposal or pick a time for a short discovery call. We reply within one business day.',
+  },
 };
