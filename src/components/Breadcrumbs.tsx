@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom';
 import { ChevronRight } from 'lucide-react';
+import { PrefetchLink } from './PrefetchLink';
 
 export interface BreadcrumbItem {
   label: string;
@@ -26,12 +26,12 @@ export function Breadcrumbs({ items }: BreadcrumbsProps) {
                   {item.label}
                 </span>
               ) : (
-                <Link
+                <PrefetchLink
                   to={item.to}
                   className="transition-colors hover:text-[#FF5A1F] whitespace-nowrap"
                 >
                   {item.label}
-                </Link>
+                </PrefetchLink>
               )}
             </li>
           );

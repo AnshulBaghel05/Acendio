@@ -4,14 +4,26 @@ import { LeadCaptureForm } from './LeadCaptureForm';
 
 const SESSION_KEY = 'acendio_growth_audit_prompted_v1';
 
+interface GrowthAuditModalProps {
+  initialOpen?: boolean;
+  onClose?: () => void;
+}
+
 /**
  * Exit-intent (desktop) and non-intrusive timed (mobile, >=24s) lead-capture modal.
- * Shown at most once per session, never within the first 8 seconds.
+ * Loaded lazily only once triggered so initial page loads stay fast.
  */
-export function GrowthAuditModal() {
-  const [open, setOpen] = useState(false);
+export function GrowthAuditModal({
+  initialOpen = false,
+  onClose,
+}: GrowthAuditModalProps) {
+  const [open, setOpen] = useState(initialOpen);
 
   useEffect(() => {
+    if (initialOpen) {
+      setOpen(true);
+      return;
+    }
     if (typeof window === 'undefined') return;
     try {
       if (window.sessionStorage.getItem(SESSION_KEY) === '1') {
@@ -55,16 +67,24 @@ export function GrowthAuditModal() {
       window.clearTimeout(mobileTimer);
       document.removeEventListener('mouseleave', onMouseLeave);
     };
-  }, []);
+  }, [initialOpen]);
+
+  const handleClose = () => {
+    setOpen(false);
+    onClose?.();
+  };
 
   useEffect(() => {
     if (!open) return;
     const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setOpen(false);
+      if (e.key === 'Escape') {
+        setOpen(false);
+        onClose?.();
+      }
     };
     window.addEventListener('keydown', onKeyDown);
     return () => window.removeEventListener('keydown', onKeyDown);
-  }, [open]);
+  }, [open, onClose]);
 
   if (!open) return null;
 
@@ -74,7 +94,7 @@ export function GrowthAuditModal() {
       aria-modal="true"
       aria-labelledby="growth-audit-modal-title"
       className="fixed inset-0 z-50 flex items-center justify-center bg-[#0E0F12]/70 p-4"
-      onClick={() => setOpen(false)}
+      onClick={handleClose}
     >
       <div
         className="relative max-h-[90vh] w-full max-w-lg overflow-y-auto border border-[#0E0F12] bg-[#F4F1EA] p-5 sm:p-6"
@@ -97,7 +117,7 @@ export function GrowthAuditModal() {
           </div>
           <button
             type="button"
-            onClick={() => setOpen(false)}
+            onClick={handleClose}
             aria-label="Dismiss Free Growth Audit modal"
             className="flex min-h-[44px] min-w-[44px] items-center justify-center border border-[#D9D4C7] bg-[#FFFFFF] text-[#0E0F12] hover:border-[#0E0F12]"
           >
@@ -109,7 +129,7 @@ export function GrowthAuditModal() {
           compact
           idPrefix="audit-modal"
           defaultService="Full Growth System / Growth Audit"
-          onSuccess={() => setOpen(false)}
+          onSuccess={handleClose}
         />
       </div>
     </div>

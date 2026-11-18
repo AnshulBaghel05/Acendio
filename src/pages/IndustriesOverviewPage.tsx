@@ -1,10 +1,10 @@
-import { Link } from 'react-router-dom';
 import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import { INDUSTRIES_CONTENT } from '../content/industries';
 import { SITE_CONFIG } from '../config/site';
 import { trackEvent } from '../lib/analytics';
 import { SeoHead } from '../components/SeoHead';
 import { Breadcrumbs } from '../components/Breadcrumbs';
+import { PrefetchLink } from '../components/PrefetchLink';
 import { CtaBand } from '../components/CtaBand';
 
 interface IndustriesOverviewPageProps {
@@ -76,9 +76,9 @@ export default function IndustriesOverviewPage({
                     <ArrowUpRight className="h-4 w-4 text-[#5C5F66]" aria-hidden="true" />
                   </div>
                   <h2 className="mt-3 font-editorial text-2xl font-semibold text-[#0E0F12]">
-                    <Link to={`/industries/${ind.slug}`} className="hover:text-[#FF5A1F]">
+                    <PrefetchLink to={`/industries/${ind.slug}`} className="hover:text-[#FF5A1F]">
                       {ind.name}
-                    </Link>
+                    </PrefetchLink>
                   </h2>
                   <p className="mt-2 text-sm leading-relaxed text-[#5C5F66]">{ind.summary}</p>
                 </div>
@@ -90,13 +90,13 @@ export default function IndustriesOverviewPage({
                   <p className="mt-1 text-xs font-medium text-[#0E0F12]">
                     {ind.recommendedStack.map((item) => item.title).join(' · ')}
                   </p>
-                  <Link
+                  <PrefetchLink
                     to={`/industries/${ind.slug}`}
                     className="link-editorial mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-[#0E0F12]"
                   >
                     <span>Explore {ind.shortName} Playbook</span>
                     <ArrowRight className="h-4 w-4 text-[#FF5A1F]" aria-hidden="true" />
-                  </Link>
+                  </PrefetchLink>
                 </div>
               </div>
             ))}
@@ -115,13 +115,13 @@ export default function IndustriesOverviewPage({
                 </p>
               </div>
               <div className="mt-6 border-t border-[#D9D4C7] pt-4">
-                <Link
+                <PrefetchLink
                   to="/contact"
                   className="btn-signal inline-flex min-h-[44px] items-center gap-2 px-5 py-2.5 text-sm whitespace-nowrap"
                 >
                   <span>Discuss Your Business</span>
                   <ArrowRight className="h-4 w-4" aria-hidden="true" />
-                </Link>
+                </PrefetchLink>
               </div>
             </div>
           </div>

@@ -1,10 +1,10 @@
-import { Link } from 'react-router-dom';
 import { ArrowRight, Check } from 'lucide-react';
 import { PROCESS_CONTENT } from '../content/process';
 import { SITE_CONFIG } from '../config/site';
 import { trackEvent } from '../lib/analytics';
 import { SeoHead } from '../components/SeoHead';
 import { Breadcrumbs } from '../components/Breadcrumbs';
+import { PrefetchLink } from '../components/PrefetchLink';
 import { SampleReportingMockup } from '../components/diagrams/SampleReportingMockup';
 import { CtaBand } from '../components/CtaBand';
 
@@ -124,13 +124,13 @@ export default function ProcessPage({ onOpenBookModal }: ProcessPageProps) {
               <p className="text-muted-ink mt-3 text-sm leading-relaxed sm:text-base">
                 Once live, Phase 04 reviews connect real ad spend, AI voice recovery, and web forms directly to calendar bookings inside GoHighLevel—without vanity metrics.
               </p>
-              <Link
+              <PrefetchLink
                 to="/contact"
                 className="btn-outline-ink mt-6 inline-flex min-h-[44px] items-center gap-2 border-[#F4F1EA]/40 px-5 py-2.5 text-sm text-[#F4F1EA] hover:border-[#F4F1EA] hover:bg-[#F4F1EA] hover:text-[#0E0F12]"
               >
                 <span>Request Your Growth Audit</span>
                 <ArrowRight className="h-4 w-4" aria-hidden="true" />
-              </Link>
+              </PrefetchLink>
             </div>
             <div className="lg:col-span-7">
               <SampleReportingMockup />

@@ -1,35 +1,51 @@
-import { Suspense, lazy, useEffect, useState } from 'react';
+import { Suspense, lazy, useCallback, useEffect, useState } from 'react';
 import {
   BrowserRouter,
   Navigate,
   Route,
   Routes,
   useLocation,
+  useNavigationType,
   useParams,
 } from 'react-router-dom';
 import { captureAttributionOnLoad } from './lib/utm';
-import { scheduleGhlChatWidgetLoad, trackEvent } from './lib/analytics';
+import {
+  getStoredConsent,
+  initializeTrackingScripts,
+  scheduleGhlChatWidgetLoad,
+  trackEvent,
+} from './lib/analytics';
+import { pageLoaders, scheduleIdlePrefetch } from './lib/routePrefetch';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 import { MobileStickyBar } from './components/MobileStickyBar';
-import { BookCallModal } from './components/BookCallModal';
-import { GrowthAuditModal } from './components/GrowthAuditModal';
-import { CookieConsentBanner } from './components/CookieConsentBanner';
+import HomePage from './pages/HomePage';
 
-const HomePage = lazy(() => import('./pages/HomePage'));
-const ServicesOverviewPage = lazy(() => import('./pages/ServicesOverviewPage'));
-const ServiceDetailPage = lazy(() => import('./pages/ServiceDetailPage'));
-const AboutPage = lazy(() => import('./pages/AboutPage'));
-const ProcessPage = lazy(() => import('./pages/ProcessPage'));
-const IndustriesOverviewPage = lazy(() => import('./pages/IndustriesOverviewPage'));
-const IndustryDetailPage = lazy(() => import('./pages/IndustryDetailPage'));
-const BlogIndexPage = lazy(() => import('./pages/BlogIndexPage'));
-const BlogPostPage = lazy(() => import('./pages/BlogPostPage'));
-const FaqPage = lazy(() => import('./pages/FaqPage'));
-const ContactPage = lazy(() => import('./pages/ContactPage'));
-const ThankYouPage = lazy(() => import('./pages/ThankYouPage'));
-const LegalPage = lazy(() => import('./pages/LegalPage'));
-const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
+const ServicesOverviewPage = lazy(pageLoaders.servicesOverview);
+const ServiceDetailPage = lazy(pageLoaders.serviceDetail);
+const AboutPage = lazy(pageLoaders.about);
+const ProcessPage = lazy(pageLoaders.process);
+const IndustriesOverviewPage = lazy(pageLoaders.industriesOverview);
+const IndustryDetailPage = lazy(pageLoaders.industryDetail);
+const BlogIndexPage = lazy(pageLoaders.blogIndex);
+const BlogPostPage = lazy(pageLoaders.blogPost);
+const FaqPage = lazy(pageLoaders.faq);
+const ContactPage = lazy(pageLoaders.contact);
+const ThankYouPage = lazy(pageLoaders.thankYou);
+const LegalPage = lazy(pageLoaders.legal);
+const NotFoundPage = lazy(pageLoaders.notFound);
+
+const BookCallModal = lazy(() =>
+  import('./components/BookCallModal').then((m) => ({ default: m.BookCallModal })),
+);
+const GrowthAuditModal = lazy(() =>
+  import('./components/GrowthAuditModal').then((m) => ({ default: m.GrowthAuditModal })),
+);
+const CookieConsentBanner = lazy(() =>
+  import('./components/CookieConsentBanner').then((m) => ({ default: m.CookieConsentBanner })),
+);
+
+const AUDIT_SESSION_KEY = 'acendio_growth_audit_prompted_v1';
 
 function BlogSlugRedirect() {
   const { slug } = useParams<{ slug: string }>();
@@ -38,17 +54,40 @@ function BlogSlugRedirect() {
 
 function RouteLifecycleManager() {
   const { pathname, search, hash } = useLocation();
+  const navigationType = useNavigationType();
 
   useEffect(() => {
+    const prefersReduced =
+      typeof window !== 'undefined' &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
     if (hash) {
-      const target = document.getElementById(hash.slice(1));
-      if (target) {
-        target.scrollIntoView({ behavior: 'smooth' });
-        return;
-      }
+      const targetId = hash.slice(1);
+      let attempts = 0;
+      let rafId = 0;
+
+      const tryScrollToHash = () => {
+        const target = document.getElementById(targetId);
+        if (target) {
+          target.scrollIntoView({ behavior: prefersReduced ? 'auto' : 'smooth' });
+          return;
+        }
+        attempts += 1;
+        if (attempts < 30) {
+          rafId = window.requestAnimationFrame(tryScrollToHash);
+        }
+      };
+
+      tryScrollToHash();
+      return () => {
+        if (rafId) window.cancelAnimationFrame(rafId);
+      };
     }
-    window.scrollTo({ top: 0, behavior: 'auto' });
-  }, [pathname, hash]);
+
+    if (navigationType !== 'POP') {
+      window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+    }
+  }, [pathname, hash, navigationType]);
 
   useEffect(() => {
     let fired = false;
@@ -75,28 +114,91 @@ function RouteLifecycleManager() {
 
 function PageLoadingFallback() {
   return (
-    <div className="mx-auto flex min-h-[50vh] max-w-7xl items-center justify-center px-4 py-20">
-      <div className="h-7 w-7 animate-spin rounded-full border-2 border-[#D9D4C7] border-t-[#FF5A1F]" />
+    <div aria-busy="true" aria-label="Loading page content" className="min-h-[65vh] bg-[#F4F1EA]">
+      <div className="h-0.5 w-full overflow-hidden bg-[#D9D4C7]/60">
+        <div className="h-full w-1/3 animate-pulse bg-[#FF5A1F]" />
+      </div>
     </div>
   );
 }
 
 function AppShell() {
   const [bookModalOpen, setBookModalOpen] = useState(false);
+  const [auditModalTriggered, setAuditModalTriggered] = useState(false);
   const [cookieForceOpen, setCookieForceOpen] = useState(false);
+  const [needsCookieBanner, setNeedsCookieBanner] = useState(() => !getStoredConsent());
 
   useEffect(() => {
     captureAttributionOnLoad();
     scheduleGhlChatWidgetLoad();
+    scheduleIdlePrefetch();
+
+    const existingConsent = getStoredConsent();
+    if (existingConsent) {
+      setNeedsCookieBanner(false);
+      if (existingConsent.analytics || existingConsent.marketing) {
+        initializeTrackingScripts(existingConsent);
+      }
+    }
   }, []);
 
-  const handleOpenBookModal = () => setBookModalOpen(true);
+  // Lightweight exit-intent / mobile-dwell trigger so GrowthAuditModal + LeadCaptureForm stay out of initial bundle
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    try {
+      if (window.sessionStorage.getItem(AUDIT_SESSION_KEY) === '1') {
+        return;
+      }
+    } catch {
+      return;
+    }
+
+    let eligible = false;
+    const minDwellTimer = window.setTimeout(() => {
+      eligible = true;
+    }, 8000);
+
+    const triggerOnce = () => {
+      try {
+        if (window.sessionStorage.getItem(AUDIT_SESSION_KEY) === '1') return;
+        window.sessionStorage.setItem(AUDIT_SESSION_KEY, '1');
+      } catch {
+        // ignore storage restrictions
+      }
+      setAuditModalTriggered(true);
+    };
+
+    const onMouseLeave = (e: MouseEvent) => {
+      if (!eligible) return;
+      if (e.clientY <= 4 && window.innerWidth >= 1024) {
+        triggerOnce();
+      }
+    };
+
+    const mobileTimer = window.setTimeout(() => {
+      if (window.innerWidth < 1024) {
+        triggerOnce();
+      }
+    }, 24000);
+
+    document.addEventListener('mouseleave', onMouseLeave);
+    return () => {
+      window.clearTimeout(minDwellTimer);
+      window.clearTimeout(mobileTimer);
+      document.removeEventListener('mouseleave', onMouseLeave);
+    };
+  }, []);
+
+  const handleOpenBookModal = useCallback(() => setBookModalOpen(true), []);
+  const handleCloseBookModal = useCallback(() => setBookModalOpen(false), []);
+  const handleOpenCookiePreferences = useCallback(() => setCookieForceOpen(true), []);
+  const handleCloseCookieForceOpen = useCallback(() => setCookieForceOpen(false), []);
 
   return (
     <div className="flex min-h-screen flex-col bg-[#F4F1EA] text-[#0E0F12]">
       <a
         href="#main-content"
-        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:border focus:border-[#0E0F12] focus:bg-[#FF5A1F] focus:px-4 focus:py-2 focus:text-sm focus:font-bold focus:text-[#0E0F12]"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:border focus:border-[#0E0F12] focus:bg-[#FF5A1F] focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-[#0E0F12]"
       >
         Skip to main content
       </a>
@@ -152,15 +254,32 @@ function AppShell() {
         </Suspense>
       </main>
 
-      <Footer onOpenCookiePreferences={() => setCookieForceOpen(true)} />
+      <Footer onOpenCookiePreferences={handleOpenCookiePreferences} />
       <MobileStickyBar onOpenBookModal={handleOpenBookModal} />
 
-      <BookCallModal isOpen={bookModalOpen} onClose={() => setBookModalOpen(false)} />
-      <GrowthAuditModal />
-      <CookieConsentBanner
-        forceOpen={cookieForceOpen}
-        onCloseForceOpen={() => setCookieForceOpen(false)}
-      />
+      {bookModalOpen && (
+        <Suspense fallback={null}>
+          <BookCallModal isOpen={bookModalOpen} onClose={handleCloseBookModal} />
+        </Suspense>
+      )}
+
+      {auditModalTriggered && (
+        <Suspense fallback={null}>
+          <GrowthAuditModal
+            initialOpen
+            onClose={() => setAuditModalTriggered(false)}
+          />
+        </Suspense>
+      )}
+
+      {(needsCookieBanner || cookieForceOpen) && (
+        <Suspense fallback={null}>
+          <CookieConsentBanner
+            forceOpen={cookieForceOpen}
+            onCloseForceOpen={handleCloseCookieForceOpen}
+          />
+        </Suspense>
+      )}
     </div>
   );
 }

@@ -1,9 +1,9 @@
-import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import { BLOG_POSTS } from '../content/blog';
 import { SITE_CONFIG } from '../config/site';
 import { SeoHead } from '../components/SeoHead';
 import { Breadcrumbs } from '../components/Breadcrumbs';
+import { PrefetchLink } from '../components/PrefetchLink';
 import { BlogDiagramCover } from '../components/diagrams/BlogDiagramCover';
 import { CtaBand } from '../components/CtaBand';
 
@@ -59,9 +59,9 @@ export default function BlogIndexPage({ onOpenBookModal }: BlogIndexPageProps) {
                   </div>
 
                   <h2 className="mt-3 font-editorial text-2xl font-semibold leading-snug text-[#0E0F12]">
-                    <Link to={`/insights/${post.slug}`} className="hover:text-[#FF5A1F]">
+                    <PrefetchLink to={`/insights/${post.slug}`} className="hover:text-[#FF5A1F]">
                       {post.title}
-                    </Link>
+                    </PrefetchLink>
                   </h2>
 
                   <p className="mt-3 flex-1 text-sm leading-relaxed text-[#5C5F66]">
@@ -72,13 +72,13 @@ export default function BlogIndexPage({ onOpenBookModal }: BlogIndexPageProps) {
                     <span className="font-mono-tabular text-[11px] text-[#5C5F66]">
                       {post.author}
                     </span>
-                    <Link
+                    <PrefetchLink
                       to={`/insights/${post.slug}`}
                       className="inline-flex items-center gap-1.5 font-mono-tabular text-xs font-semibold text-[#0E0F12] hover:text-[#FF5A1F]"
                     >
                       <span>Read Guide</span>
                       <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
-                    </Link>
+                    </PrefetchLink>
                   </div>
                 </div>
               </article>

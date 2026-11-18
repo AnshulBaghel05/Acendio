@@ -1,17 +1,29 @@
-import { Link, useParams } from 'react-router-dom';
+import { Suspense, lazy } from 'react';
+import { useParams } from 'react-router-dom';
 import { ArrowRight, Check } from 'lucide-react';
 import { getServiceBySlug, SERVICES_CONTENT, ServicePageData } from '../content/services';
 import { SITE_CONFIG } from '../config/site';
 import { trackEvent } from '../lib/analytics';
 import { SeoHead } from '../components/SeoHead';
 import { Breadcrumbs } from '../components/Breadcrumbs';
+import { PrefetchLink } from '../components/PrefetchLink';
 import { ServiceDiagram } from '../components/diagrams/ServiceDiagram';
-import { SocialMediaVisual } from '../components/diagrams/SocialMediaVisual';
-import { UgcCreativeVisual } from '../components/diagrams/UgcCreativeVisual';
 import { FaqAccordion } from '../components/FaqAccordion';
 import { LeadCaptureForm } from '../components/LeadCaptureForm';
 import { CtaBand } from '../components/CtaBand';
 import NotFoundPage from './NotFoundPage';
+
+const SocialMediaVisual = lazy(() =>
+  import('../components/diagrams/SocialMediaVisual').then((m) => ({
+    default: m.SocialMediaVisual,
+  })),
+);
+
+const UgcCreativeVisual = lazy(() =>
+  import('../components/diagrams/UgcCreativeVisual').then((m) => ({
+    default: m.UgcCreativeVisual,
+  })),
+);
 
 interface ServiceDetailPageProps {
   onOpenBookModal: () => void;
@@ -447,9 +459,27 @@ export default function ServiceDetailPage({ onOpenBookModal }: ServiceDetailPage
               </div>
               <div className="lg:col-span-6">
                 {service.diagramType === 'social-calendar' ? (
-                  <SocialMediaVisual />
+                  <Suspense
+                    fallback={
+                      <div
+                        className="min-h-[380px] border border-[#0E0F12] bg-[#FFFFFF]"
+                        aria-hidden="true"
+                      />
+                    }
+                  >
+                    <SocialMediaVisual />
+                  </Suspense>
                 ) : service.diagramType === 'ugc-studio' ? (
-                  <UgcCreativeVisual />
+                  <Suspense
+                    fallback={
+                      <div
+                        className="min-h-[380px] border border-[#0E0F12] bg-[#FFFFFF]"
+                        aria-hidden="true"
+                      />
+                    }
+                  >
+                    <UgcCreativeVisual />
+                  </Suspense>
                 ) : (
                   <ServiceDiagram type={service.diagramType} title={service.shortTitle} />
                 )}
@@ -531,7 +561,7 @@ export default function ServiceDetailPage({ onOpenBookModal }: ServiceDetailPage
                   </p>
                   <div className="mt-2 space-y-1">
                     {SERVICES_CONTENT.map((item) => (
-                      <Link
+                      <PrefetchLink
                         key={item.slug}
                         to={`/services/${item.slug}`}
                         className={`block text-xs ${
@@ -541,7 +571,7 @@ export default function ServiceDetailPage({ onOpenBookModal }: ServiceDetailPage
                         }`}
                       >
                         {item.numeral} · {item.shortTitle}
-                      </Link>
+                      </PrefetchLink>
                     ))}
                   </div>
                 </div>
@@ -560,7 +590,7 @@ export default function ServiceDetailPage({ onOpenBookModal }: ServiceDetailPage
                   </p>
                   <div className="mt-4 grid gap-4 sm:grid-cols-3">
                     {relatedServices.map((rel) => (
-                      <Link
+                      <PrefetchLink
                         key={rel.slug}
                         to={`/services/${rel.slug}`}
                         className="group border border-[#D9D4C7] bg-[#FFFFFF] p-4 transition-colors hover:border-[#0E0F12]"
@@ -574,7 +604,7 @@ export default function ServiceDetailPage({ onOpenBookModal }: ServiceDetailPage
                         <p className="mt-1.5 text-xs leading-relaxed text-[#5C5F66]">
                           {rel.bentoOutcome}
                         </p>
-                      </Link>
+                      </PrefetchLink>
                     ))}
                   </div>
                 </div>

@@ -1,5 +1,4 @@
 import { createRoot } from 'react-dom/client';
-import '@fontsource/fraunces/latin-500.css';
 import '@fontsource/fraunces/latin-600.css';
 import '@fontsource/fraunces/latin-700.css';
 import '@fontsource/inter-tight/latin-400.css';

@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import { ArrowRight, ArrowUpRight, Check } from 'lucide-react';
 import { HOME_CONTENT } from '../content/home';
 import { SERVICES_CONTENT } from '../content/services';
@@ -8,6 +7,7 @@ import { SITE_CONFIG } from '../config/site';
 import { trackEvent } from '../lib/analytics';
 import { SeoHead } from '../components/SeoHead';
 import { Reveal } from '../components/Reveal';
+import { PrefetchLink } from '../components/PrefetchLink';
 import { HomeDiagram } from '../components/diagrams/HomeDiagram';
 import { SampleReportingMockup } from '../components/diagrams/SampleReportingMockup';
 import { BlogDiagramCover } from '../components/diagrams/BlogDiagramCover';
@@ -59,13 +59,13 @@ export default function HomePage({ onOpenBookModal }: HomePageProps) {
                   <ArrowRight className="h-4 w-4" aria-hidden="true" />
                 </button>
 
-                <Link
+                <PrefetchLink
                   to="/services"
                   onClick={() => trackEvent('cta_click', { location: 'hero_secondary' })}
                   className="btn-outline-ink inline-flex min-h-[48px] items-center gap-2 px-5 py-3 text-sm whitespace-nowrap"
                 >
                   <span>{HOME_CONTENT.hero.secondaryCta}</span>
-                </Link>
+                </PrefetchLink>
               </div>
 
               {/* Three calm method lines — zero inflated widget collage */}
@@ -119,13 +119,13 @@ export default function HomePage({ onOpenBookModal }: HomePageProps) {
                         <p className="mt-2 text-sm leading-relaxed text-[#5C5F66]">
                           {item.description}
                         </p>
-                        <Link
+                        <PrefetchLink
                           to={item.remedyLink}
                           className="link-editorial mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-[#0E0F12]"
                         >
                           <span>{item.remedyLabel}</span>
                           <ArrowUpRight className="h-4 w-4 text-[#FF5A1F]" aria-hidden="true" />
-                        </Link>
+                        </PrefetchLink>
                       </div>
                     </div>
                   </Reveal>
@@ -151,18 +151,18 @@ export default function HomePage({ onOpenBookModal }: HomePageProps) {
                 {HOME_CONTENT.servicesSection.subtitle}
               </p>
             </div>
-            <Link
+            <PrefetchLink
               to="/services"
               className="btn-outline-ink inline-flex min-h-[44px] items-center gap-2 px-4 py-2 text-sm whitespace-nowrap"
             >
               <span>Compare All Services</span>
               <ArrowRight className="h-4 w-4" aria-hidden="true" />
-            </Link>
+            </PrefetchLink>
           </div>
 
           <div className="divide-y divide-[#D9D4C7] border-b border-[#0E0F12] bg-[#FFFFFF]">
             {SERVICES_CONTENT.map((service) => (
-              <Link
+              <PrefetchLink
                 key={service.slug}
                 to={`/services/${service.slug}`}
                 className="group grid items-center gap-4 px-5 py-5 transition-colors hover:bg-[#F4F1EA]/70 sm:grid-cols-12 sm:px-6"
@@ -186,7 +186,7 @@ export default function HomePage({ onOpenBookModal }: HomePageProps) {
                     <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
                   </span>
                 </div>
-              </Link>
+              </PrefetchLink>
             ))}
 
             {/* 10th row: Full Growth Stack / Custom Proposal */}
@@ -232,13 +232,13 @@ export default function HomePage({ onOpenBookModal }: HomePageProps) {
                 {HOME_CONTENT.process.subtitle}
               </p>
             </div>
-            <Link
+            <PrefetchLink
               to="/process"
               className="link-editorial inline-flex items-center gap-1.5 text-sm font-semibold text-[#0E0F12]"
             >
               <span>Full 4-Phase Rollout Plan</span>
               <ArrowRight className="h-4 w-4 text-[#FF5A1F]" aria-hidden="true" />
-            </Link>
+            </PrefetchLink>
           </div>
 
           <div className="mt-10 grid divide-y divide-[#D9D4C7] border border-[#D9D4C7] md:grid-cols-2 md:divide-x md:divide-y-0 lg:grid-cols-4">
@@ -328,19 +328,19 @@ export default function HomePage({ onOpenBookModal }: HomePageProps) {
               <p className="mt-3 text-sm leading-relaxed text-[#5C5F66]">
                 Every vertical carries distinct booking rules, urgency triggers, and compliance needs. Inspect how our workflows adapt across five core sectors.
               </p>
-              <Link
+              <PrefetchLink
                 to="/industries"
                 className="btn-outline-ink mt-6 inline-flex min-h-[44px] items-center gap-2 px-4 py-2 text-sm whitespace-nowrap"
               >
                 <span>Explore All Industries</span>
                 <ArrowRight className="h-4 w-4" aria-hidden="true" />
-              </Link>
+              </PrefetchLink>
             </div>
 
             <div className="lg:col-span-8">
               <div className="divide-y divide-[#D9D4C7] border border-[#D9D4C7] bg-[#FFFFFF]">
                 {INDUSTRIES_CONTENT.map((ind, idx) => (
-                  <Link
+                  <PrefetchLink
                     key={ind.slug}
                     to={`/industries/${ind.slug}`}
                     className="group grid items-center gap-3 px-5 py-4.5 transition-colors hover:bg-[#F4F1EA]/70 sm:grid-cols-12 sm:px-6"
@@ -360,7 +360,7 @@ export default function HomePage({ onOpenBookModal }: HomePageProps) {
                         <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
                       </span>
                     </div>
-                  </Link>
+                  </PrefetchLink>
                 ))}
               </div>
             </div>
@@ -380,13 +380,13 @@ export default function HomePage({ onOpenBookModal }: HomePageProps) {
                 Practical Blueprints for Web, Voice &amp; CRM
               </h2>
             </div>
-            <Link
+            <PrefetchLink
               to="/insights"
               className="link-editorial inline-flex items-center gap-1.5 text-sm font-semibold text-[#0E0F12]"
             >
               <span>All Guides</span>
               <ArrowRight className="h-4 w-4 text-[#FF5A1F]" aria-hidden="true" />
-            </Link>
+            </PrefetchLink>
           </div>
 
           <div className="mt-8 grid gap-6 lg:grid-cols-3">
@@ -402,20 +402,20 @@ export default function HomePage({ onOpenBookModal }: HomePageProps) {
                     <span>{post.readTime}</span>
                   </div>
                   <h3 className="mt-3 font-editorial text-xl font-semibold leading-snug text-[#0E0F12]">
-                    <Link to={`/insights/${post.slug}`} className="hover:text-[#FF5A1F]">
+                    <PrefetchLink to={`/insights/${post.slug}`} className="hover:text-[#FF5A1F]">
                       {post.title}
-                    </Link>
+                    </PrefetchLink>
                   </h3>
                   <p className="mt-2.5 flex-1 text-sm leading-relaxed text-[#5C5F66]">
                     {post.excerpt}
                   </p>
-                  <Link
+                  <PrefetchLink
                     to={`/insights/${post.slug}`}
                     className="mt-4 inline-flex items-center gap-1.5 font-mono-tabular text-xs font-semibold text-[#0E0F12] hover:text-[#FF5A1F]"
                   >
                     <span>Read Guide</span>
                     <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
-                  </Link>
+                  </PrefetchLink>
                 </div>
               </article>
             ))}

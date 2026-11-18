@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ChevronDown } from 'lucide-react';
 import { FaqItem } from '../content/home';
 
@@ -9,6 +9,10 @@ interface FaqAccordionProps {
 
 export function FaqAccordion({ items, idPrefix = 'faq' }: FaqAccordionProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
+
+  useEffect(() => {
+    setOpenIndex(0);
+  }, [idPrefix]);
 
   return (
     <div className="divide-y divide-[#D9D4C7] border-y border-[#D9D4C7] bg-[#FFFFFF]">

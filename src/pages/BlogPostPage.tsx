@@ -1,9 +1,10 @@
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { BLOG_POSTS, getBlogPostBySlug } from '../content/blog';
 import { SITE_CONFIG } from '../config/site';
 import { SeoHead } from '../components/SeoHead';
 import { Breadcrumbs } from '../components/Breadcrumbs';
+import { PrefetchLink } from '../components/PrefetchLink';
 import { BlogDiagramCover } from '../components/diagrams/BlogDiagramCover';
 import { CtaBand } from '../components/CtaBand';
 import NotFoundPage from './NotFoundPage';
@@ -108,13 +109,13 @@ export default function BlogPostPage({ onOpenBookModal }: BlogPostPageProps) {
                   </nav>
 
                   <div className="mt-5 border-t border-[#D9D4C7] pt-4">
-                    <Link
+                    <PrefetchLink
                       to="/insights"
                       className="inline-flex items-center gap-1.5 font-mono-tabular text-xs font-semibold text-[#0E0F12] hover:text-[#FF5A1F]"
                     >
                       <ArrowLeft className="h-3.5 w-3.5" aria-hidden="true" />
                       <span>All Insights</span>
-                    </Link>
+                    </PrefetchLink>
                   </div>
                 </div>
               </aside>
@@ -153,13 +154,13 @@ export default function BlogPostPage({ onOpenBookModal }: BlogPostPageProps) {
 
                     {section.internalLink && (
                       <div className="mt-5">
-                        <Link
+                        <PrefetchLink
                           to={section.internalLink.to}
                           className="link-editorial inline-flex items-center gap-1.5 text-sm font-semibold text-[#0E0F12]"
                         >
                           <span>{section.internalLink.label}</span>
                           <ArrowRight className="h-4 w-4 text-[#FF5A1F]" aria-hidden="true" />
-                        </Link>
+                        </PrefetchLink>
                       </div>
                     )}
                   </section>
@@ -177,7 +178,7 @@ export default function BlogPostPage({ onOpenBookModal }: BlogPostPageProps) {
             </p>
             <div className="mt-4 grid gap-6 sm:grid-cols-2">
               {otherPosts.map((other) => (
-                <Link
+                <PrefetchLink
                   key={other.slug}
                   to={`/insights/${other.slug}`}
                   className="group border border-[#D9D4C7] bg-[#FFFFFF] p-5 transition-colors hover:border-[#0E0F12]"
@@ -189,7 +190,7 @@ export default function BlogPostPage({ onOpenBookModal }: BlogPostPageProps) {
                   <h3 className="mt-2 font-editorial text-xl font-semibold text-[#0E0F12] group-hover:text-[#FF5A1F]">
                     {other.title}
                   </h3>
-                </Link>
+                </PrefetchLink>
               ))}
             </div>
           </div>

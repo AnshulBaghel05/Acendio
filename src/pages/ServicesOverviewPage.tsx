@@ -1,10 +1,10 @@
-import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import { SERVICES_CONTENT } from '../content/services';
 import { SITE_CONFIG } from '../config/site';
 import { trackEvent } from '../lib/analytics';
 import { SeoHead } from '../components/SeoHead';
 import { Breadcrumbs } from '../components/Breadcrumbs';
+import { PrefetchLink } from '../components/PrefetchLink';
 import { CtaBand } from '../components/CtaBand';
 
 interface ServicesOverviewPageProps {
@@ -72,9 +72,9 @@ export default function ServicesOverviewPage({ onOpenBookModal }: ServicesOvervi
                       {service.numeral}
                     </span>
                     <h2 className="font-editorial text-2xl font-semibold text-[#0E0F12]">
-                      <Link to={`/services/${service.slug}`} className="hover:text-[#FF5A1F]">
+                      <PrefetchLink to={`/services/${service.slug}`} className="hover:text-[#FF5A1F]">
                         {service.shortTitle}
-                      </Link>
+                      </PrefetchLink>
                     </h2>
                   </div>
                   <p className="mt-2 pl-8 text-sm leading-relaxed text-[#5C5F66]">
@@ -102,13 +102,13 @@ export default function ServicesOverviewPage({ onOpenBookModal }: ServicesOvervi
                   <span className="font-mono-tabular text-[11px] text-[#5C5F66]">
                     Scoped custom proposal after discovery
                   </span>
-                  <Link
+                  <PrefetchLink
                     to={`/services/${service.slug}`}
                     className="btn-outline-ink inline-flex min-h-[42px] items-center gap-2 px-4 py-2 text-xs whitespace-nowrap"
                   >
                     <span>Explore {service.shortTitle.split(' ')[0]} Architecture</span>
                     <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
-                  </Link>
+                  </PrefetchLink>
                 </div>
               </div>
             ))}
@@ -128,13 +128,13 @@ export default function ServicesOverviewPage({ onOpenBookModal }: ServicesOvervi
               </p>
             </div>
             <div className="lg:col-span-4 lg:text-right">
-              <Link
+              <PrefetchLink
                 to="/contact"
                 className="btn-signal inline-flex min-h-[46px] items-center gap-2 px-6 py-3 text-sm whitespace-nowrap"
               >
                 <span>Request a Custom Scope</span>
                 <ArrowRight className="h-4 w-4" aria-hidden="true" />
-              </Link>
+              </PrefetchLink>
             </div>
           </div>
         </div>

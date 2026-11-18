@@ -1,9 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
-import { Link, NavLink, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { ChevronDown, Menu, X } from 'lucide-react';
 import { SERVICE_NAV_LINKS, TOP_NAV_LINKS } from '../content/navigation';
 import { trackEvent } from '../lib/analytics';
+import { prefetchRoute } from '../lib/routePrefetch';
 import { BrandMark } from './BrandMark';
+import { PrefetchLink, PrefetchNavLink } from './PrefetchLink';
 
 interface NavbarProps {
   onOpenBookModal: () => void;
@@ -19,6 +21,15 @@ export function Navbar({ onOpenBookModal }: NavbarProps) {
     setServicesOpen(false);
     setMobileOpen(false);
   }, [location.pathname]);
+
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const prevOverflow = document.documentElement.style.overflowY;
+    document.documentElement.style.overflowY = 'hidden';
+    return () => {
+      document.documentElement.style.overflowY = prevOverflow;
+    };
+  }, [mobileOpen]);
 
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
@@ -44,9 +55,9 @@ export function Navbar({ onOpenBookModal }: NavbarProps) {
     <header className="sticky top-0 z-40 border-b border-[#D9D4C7] bg-[#F4F1EA]">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-8 px-4 sm:px-6 lg:px-8">
         {/* Zone 1: Brand Lockup */}
-        <Link to="/" aria-label="Acendio Home" className="shrink-0">
+        <PrefetchLink to="/" aria-label="Acendio Home" className="shrink-0">
           <BrandMark variant="horizontal" tone="light" size="md" />
-        </Link>
+        </PrefetchLink>
 
         {/* Zone 2: Concise Single-Line Navigation */}
         <nav aria-label="Primary navigation" className="hidden items-center gap-7 lg:flex">
@@ -59,6 +70,14 @@ export function Navbar({ onOpenBookModal }: NavbarProps) {
                     type="button"
                     aria-expanded={servicesOpen}
                     aria-haspopup="true"
+                    onMouseEnter={() => {
+                      prefetchRoute('/services');
+                      prefetchRoute('/services/website-development-maintenance');
+                    }}
+                    onFocus={() => {
+                      prefetchRoute('/services');
+                      prefetchRoute('/services/website-development-maintenance');
+                    }}
                     onClick={() => setServicesOpen((prev) => !prev)}
                     className={`inline-flex min-h-[40px] items-center gap-1 text-sm font-medium transition-colors whitespace-nowrap shrink-0 ${
                       isSvcActive
@@ -79,7 +98,7 @@ export function Navbar({ onOpenBookModal }: NavbarProps) {
                     <div className="absolute left-1/2 top-full mt-2 w-[560px] -translate-x-1/2 border border-[#0E0F12] bg-[#FFFFFF] p-4">
                       <div className="grid grid-cols-2 divide-y divide-[#D9D4C7]/60">
                         {SERVICE_NAV_LINKS.map((service) => (
-                          <Link
+                          <PrefetchLink
                             key={service.to}
                             to={service.to}
                             className="p-3 transition-colors hover:bg-[#F4F1EA]"
@@ -90,9 +109,9 @@ export function Navbar({ onOpenBookModal }: NavbarProps) {
                             <p className="mt-1 text-xs leading-relaxed text-[#5C5F66]">
                               {service.description}
                             </p>
-                          </Link>
+                          </PrefetchLink>
                         ))}
-                        <Link
+                        <PrefetchLink
                           to="/services"
                           className="flex flex-col justify-center bg-[#0E0F12] p-3 text-[#F4F1EA] transition-colors hover:bg-[#1E2026]"
                         >
@@ -102,7 +121,7 @@ export function Navbar({ onOpenBookModal }: NavbarProps) {
                           <p className="mt-1 text-xs text-[#A5A8B0]">
                             Compare all nine capabilities and rollout scopes.
                           </p>
-                        </Link>
+                        </PrefetchLink>
                       </div>
                     </div>
                   )}
@@ -111,7 +130,7 @@ export function Navbar({ onOpenBookModal }: NavbarProps) {
             }
 
             return (
-              <NavLink
+              <PrefetchNavLink
                 key={item.to}
                 to={item.to}
                 className={({ isActive }) =>
@@ -123,7 +142,7 @@ export function Navbar({ onOpenBookModal }: NavbarProps) {
                 }
               >
                 {item.label}
-              </NavLink>
+              </PrefetchNavLink>
             );
           })}
         </nav>
@@ -161,41 +180,41 @@ export function Navbar({ onOpenBookModal }: NavbarProps) {
         <div className="fixed inset-x-0 top-16 bottom-0 z-50 overflow-y-auto border-t border-[#D9D4C7] bg-[#F4F1EA] px-5 py-6 lg:hidden">
           <nav aria-label="Mobile navigation" className="space-y-6">
             <div>
-              <Link
+              <PrefetchLink
                 to="/services"
                 className="block border-b border-[#D9D4C7] py-3 font-editorial text-2xl font-semibold text-[#0E0F12]"
               >
                 Services
-              </Link>
+              </PrefetchLink>
               <div className="mt-2 divide-y divide-[#D9D4C7]/70">
                 {SERVICE_NAV_LINKS.map((s) => (
-                  <Link
+                  <PrefetchLink
                     key={s.to}
                     to={s.to}
                     className="block py-3 text-sm font-medium text-[#0E0F12] hover:text-[#FF5A1F]"
                   >
                     {s.label}
-                  </Link>
+                  </PrefetchLink>
                 ))}
               </div>
             </div>
 
             <div className="divide-y divide-[#D9D4C7] border-t border-[#0E0F12]">
               {TOP_NAV_LINKS.filter((l) => l.label !== 'Services').map((item) => (
-                <Link
+                <PrefetchLink
                   key={item.to}
                   to={item.to}
                   className="block py-3.5 text-base font-semibold text-[#0E0F12]"
                 >
                   {item.label}
-                </Link>
+                </PrefetchLink>
               ))}
-              <Link to="/faq" className="block py-3.5 text-base font-semibold text-[#0E0F12]">
+              <PrefetchLink to="/faq" className="block py-3.5 text-base font-semibold text-[#0E0F12]">
                 FAQ
-              </Link>
-              <Link to="/contact" className="block py-3.5 text-base font-semibold text-[#0E0F12]">
+              </PrefetchLink>
+              <PrefetchLink to="/contact" className="block py-3.5 text-base font-semibold text-[#0E0F12]">
                 Contact Us
-              </Link>
+              </PrefetchLink>
             </div>
 
             <div className="pt-2">

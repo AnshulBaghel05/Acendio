@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import { ABOUT_CONTENT } from '../content/about';
 import { HOME_CONTENT } from '../content/home';
@@ -6,6 +5,7 @@ import { SITE_CONFIG } from '../config/site';
 import { trackEvent } from '../lib/analytics';
 import { SeoHead } from '../components/SeoHead';
 import { Breadcrumbs } from '../components/Breadcrumbs';
+import { PrefetchLink } from '../components/PrefetchLink';
 import { AboutComposition } from '../components/diagrams/AboutComposition';
 import { CtaBand } from '../components/CtaBand';
 
@@ -53,12 +53,12 @@ export default function AboutPage({ onOpenBookModal }: AboutPageProps) {
                   <span>Book a Free Strategy Call</span>
                   <ArrowRight className="h-4 w-4" aria-hidden="true" />
                 </button>
-                <Link
+                <PrefetchLink
                   to="/process"
                   className="btn-outline-ink inline-flex min-h-[46px] items-center px-5 py-2.5 text-sm whitespace-nowrap"
                 >
                   See Our 4-Phase Process
-                </Link>
+                </PrefetchLink>
               </div>
             </div>
 

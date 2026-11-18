@@ -44,7 +44,9 @@ function setMetaTag(attr: 'name' | 'property', key: string, content: string): vo
     tag.setAttribute(attr, key);
     document.head.appendChild(tag);
   }
-  tag.setAttribute('content', content);
+  if (tag.getAttribute('content') !== content) {
+    tag.setAttribute('content', content);
+  }
 }
 
 function setCanonical(href: string): void {
@@ -54,7 +56,9 @@ function setCanonical(href: string): void {
     link.setAttribute('rel', 'canonical');
     document.head.appendChild(link);
   }
-  link.setAttribute('href', href);
+  if (link.getAttribute('href') !== href) {
+    link.setAttribute('href', href);
+  }
 }
 
 export function SeoHead({

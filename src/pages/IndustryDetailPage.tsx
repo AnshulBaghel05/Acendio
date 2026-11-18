@@ -1,10 +1,11 @@
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { ArrowRight, Check } from 'lucide-react';
 import { INDUSTRIES_CONTENT } from '../content/industries';
 import { SITE_CONFIG } from '../config/site';
 import { trackEvent } from '../lib/analytics';
 import { SeoHead } from '../components/SeoHead';
 import { Breadcrumbs } from '../components/Breadcrumbs';
+import { PrefetchLink } from '../components/PrefetchLink';
 import { LeadCaptureForm } from '../components/LeadCaptureForm';
 import { CtaBand } from '../components/CtaBand';
 import NotFoundPage from './NotFoundPage';
@@ -148,13 +149,13 @@ export default function IndustryDetailPage({ onOpenBookModal }: IndustryDetailPa
                   </h3>
                   <p className="mt-2 text-sm leading-relaxed text-[#5C5F66]">{item.detail}</p>
                 </div>
-                <Link
+                <PrefetchLink
                   to={`/services/${item.serviceSlug}`}
                   className="link-editorial mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-[#0E0F12]"
                 >
                   <span>Inspect Service Architecture</span>
                   <ArrowRight className="h-4 w-4 text-[#FF5A1F]" aria-hidden="true" />
-                </Link>
+                </PrefetchLink>
               </div>
             ))}
           </div>

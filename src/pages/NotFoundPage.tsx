@@ -1,6 +1,6 @@
-import { Link } from 'react-router-dom';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { SeoHead } from '../components/SeoHead';
+import { PrefetchLink } from '../components/PrefetchLink';
 
 export default function NotFoundPage() {
   return (
@@ -25,20 +25,20 @@ export default function NotFoundPage() {
           </p>
 
           <div className="mt-8 flex flex-wrap justify-center gap-3.5">
-            <Link
+            <PrefetchLink
               to="/"
               className="btn-signal inline-flex min-h-[46px] items-center gap-2 px-5 py-2.5 text-sm whitespace-nowrap"
             >
               <ArrowLeft className="h-4 w-4" aria-hidden="true" />
               <span>Return Home</span>
-            </Link>
-            <Link
+            </PrefetchLink>
+            <PrefetchLink
               to="/services"
               className="btn-outline-ink inline-flex min-h-[46px] items-center gap-2 px-5 py-2.5 text-sm whitespace-nowrap"
             >
               <span>Browse Services</span>
               <ArrowRight className="h-4 w-4" aria-hidden="true" />
-            </Link>
+            </PrefetchLink>
           </div>
         </div>
       </section>

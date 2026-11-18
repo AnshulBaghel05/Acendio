@@ -1,7 +1,7 @@
-import { Link } from 'react-router-dom';
 import { ArrowRight, MessageCircle, Phone } from 'lucide-react';
 import { SITE_CONFIG, getPhoneHref, getWhatsappHref } from '../config/site';
 import { trackEvent } from '../lib/analytics';
+import { PrefetchLink } from './PrefetchLink';
 
 interface CtaBandProps {
   headline: string;
@@ -47,13 +47,13 @@ export function CtaBand({
               <span>Book a Free Strategy Call</span>
               <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </button>
-            <Link
+            <PrefetchLink
               to="/contact"
               onClick={() => trackEvent('cta_click', { location: 'cta_band_contact' })}
               className="inline-flex min-h-[48px] items-center justify-center border border-[#F4F1EA]/40 px-5 py-3 text-sm font-semibold text-[#F4F1EA] transition-colors hover:border-[#F4F1EA] hover:bg-[#F4F1EA] hover:text-[#0E0F12] whitespace-nowrap"
             >
               Get a Custom Proposal
-            </Link>
+            </PrefetchLink>
             {SITE_CONFIG.phone && phoneHref && (
               <a
                 href={phoneHref}

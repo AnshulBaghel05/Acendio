@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import {
   SITE_CONFIG,
   getEmailHref,
@@ -12,6 +11,7 @@ import {
 } from '../content/navigation';
 import { trackEvent } from '../lib/analytics';
 import { BrandMark } from './BrandMark';
+import { PrefetchLink } from './PrefetchLink';
 
 interface FooterProps {
   onOpenCookiePreferences: () => void;
@@ -46,9 +46,9 @@ export function Footer({ onOpenCookiePreferences }: FooterProps) {
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
           {/* Brand & Conditional NAP Block */}
           <div className="space-y-4">
-            <Link to="/" aria-label="Acendio Home" className="inline-block">
+            <PrefetchLink to="/" aria-label="Acendio Home" className="inline-block">
               <BrandMark variant="horizontal" tone="dark" size="md" />
-            </Link>
+            </PrefetchLink>
             <p className="text-sm leading-relaxed text-[#A5A8B0]">{SITE_CONFIG.tagline}</p>
 
             {hasNapDetails && (
@@ -117,15 +117,15 @@ export function Footer({ onOpenCookiePreferences }: FooterProps) {
             </h2>
             <ul className="mt-4 space-y-2.5 text-sm text-[#F4F1EA]">
               <li>
-                <Link to="/services" className="hover:text-[#FF5A1F]">
+                <PrefetchLink to="/services" className="hover:text-[#FF5A1F]">
                   All Services
-                </Link>
+                </PrefetchLink>
               </li>
               {SERVICE_NAV_LINKS.map((item) => (
                 <li key={item.to}>
-                  <Link to={item.to} className="text-[#A5A8B0] hover:text-[#F4F1EA]">
+                  <PrefetchLink to={item.to} className="text-[#A5A8B0] hover:text-[#F4F1EA]">
                     {item.label}
-                  </Link>
+                  </PrefetchLink>
                 </li>
               ))}
             </ul>
@@ -138,15 +138,15 @@ export function Footer({ onOpenCookiePreferences }: FooterProps) {
             </h2>
             <ul className="mt-4 space-y-2.5 text-sm">
               <li>
-                <Link to="/industries" className="text-[#F4F1EA] hover:text-[#FF5A1F]">
+                <PrefetchLink to="/industries" className="text-[#F4F1EA] hover:text-[#FF5A1F]">
                   All Industries
-                </Link>
+                </PrefetchLink>
               </li>
               {FOOTER_INDUSTRY_LINKS.map((item) => (
                 <li key={item.to}>
-                  <Link to={item.to} className="text-[#A5A8B0] hover:text-[#F4F1EA]">
+                  <PrefetchLink to={item.to} className="text-[#A5A8B0] hover:text-[#F4F1EA]">
                     {item.label}
-                  </Link>
+                  </PrefetchLink>
                 </li>
               ))}
             </ul>
@@ -160,9 +160,9 @@ export function Footer({ onOpenCookiePreferences }: FooterProps) {
             <ul className="mt-4 space-y-2.5 text-sm">
               {FOOTER_COMPANY_LINKS.map((item) => (
                 <li key={item.to}>
-                  <Link to={item.to} className="text-[#A5A8B0] hover:text-[#F4F1EA]">
+                  <PrefetchLink to={item.to} className="text-[#A5A8B0] hover:text-[#F4F1EA]">
                     {item.label}
-                  </Link>
+                  </PrefetchLink>
                 </li>
               ))}
             </ul>
@@ -194,12 +194,12 @@ export function Footer({ onOpenCookiePreferences }: FooterProps) {
             © {new Date().getFullYear()} {SITE_CONFIG.brandName}. All rights reserved.
           </p>
           <div className="flex flex-wrap items-center gap-5">
-            <Link to="/privacy-policy" className="hover:text-[#F4F1EA]">
+            <PrefetchLink to="/privacy-policy" className="hover:text-[#F4F1EA]">
               Privacy Policy
-            </Link>
-            <Link to="/terms" className="hover:text-[#F4F1EA]">
+            </PrefetchLink>
+            <PrefetchLink to="/terms" className="hover:text-[#F4F1EA]">
               Terms of Service
-            </Link>
+            </PrefetchLink>
             <button
               type="button"
               onClick={onOpenCookiePreferences}

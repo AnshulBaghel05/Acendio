@@ -1,10 +1,10 @@
-import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import { HOME_CONTENT } from '../content/home';
 import { SERVICES_CONTENT } from '../content/services';
 import { SITE_CONFIG } from '../config/site';
 import { SeoHead } from '../components/SeoHead';
 import { Breadcrumbs } from '../components/Breadcrumbs';
+import { PrefetchLink } from '../components/PrefetchLink';
 import { FaqAccordion } from '../components/FaqAccordion';
 import { CtaBand } from '../components/CtaBand';
 
@@ -76,13 +76,13 @@ export default function FaqPage({ onOpenBookModal }: FaqPageProps) {
                       <span className="font-mono-tabular text-xs font-semibold text-[#FF5A1F]">
                         {svc.numeral} / {svc.shortTitle}
                       </span>
-                      <Link
+                      <PrefetchLink
                         to={`/services/${svc.slug}`}
                         className="inline-flex items-center gap-1 font-mono-tabular text-[11px] font-medium text-[#0E0F12] hover:text-[#FF5A1F]"
                       >
                         <span>Details</span>
                         <ArrowRight className="h-3 w-3" aria-hidden="true" />
-                      </Link>
+                      </PrefetchLink>
                     </div>
                     <div className="mt-3 divide-y divide-[#D9D4C7]">
                       {svc.faqs.slice(1, 3).map((q) => (
