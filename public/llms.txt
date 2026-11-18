@@ -1,0 +1,32 @@
+# Acendio — AI & Digital Growth Agency
+
+> Tagline: Ascend With AI-Powered Growth.
+> Primary Objective: Generating qualified inbound appointments and custom growth systems for local and growing businesses across [TARGET REGIONS].
+
+## Overview
+Acendio is an AI and digital growth agency headquartered in [LOCATION]. We engineer connected acquisition and retention infrastructure: conversion-focused websites, 24/7 AI voice and SMS receptionists, Meta and Google Ads management, automated Google review workflows, CRM speed-to-lead pipelines, AI support chat, and custom software integrations.
+
+## Core Services
+- [Website Development, Deployment & Maintenance](https://[DOMAIN]/services/website-development-maintenance): Fast, mobile-first websites engineered for search visibility and conversion, backed by ongoing security updates, backups, uptime monitoring, and performance tuning.
+- [AI Receptionist](https://[DOMAIN]/services/ai-receptionist): 24/7 voice and SMS receptionist that answers inbound calls, qualifies prospects, books calendar appointments, recovers missed calls via text-back, and logs every interaction in the CRM.
+- [Ads Management & Ad Creatives](https://[DOMAIN]/services/ads-management-creatives): Full-funnel Meta and Google Ads campaign strategy, tracking, retargeting, static and video ad creative design, and A/B testing.
+- [Review Management & Automation](https://[DOMAIN]/services/review-management-automation): Automated post-service SMS and email review requests, sentiment routing, AI-assisted review replies, and Google Business Profile growth.
+- [CRM & Lead Follow-Up Automation](https://[DOMAIN]/services/crm-lead-follow-up-automation): GoHighLevel pipeline architecture, instant speed-to-lead, multi-channel nurture sequences, lead reactivation, and appointment reminders.
+- [AI Chat & Support](https://[DOMAIN]/services/ai-chat-support): Website and social chat agents trained on verified company FAQs for 24/7 lead capture and clean human handoff.
+- [Custom Software & AI Automation](https://[DOMAIN]/services/custom-software-ai-automation): Bespoke internal tools, operational dashboards, API bridges, and LLM workflows tailored to business operations.
+
+## Primary Industries
+- Real Estate (`/industries/real-estate`)
+- Home Services (`/industries/home-services`)
+- Clinics & Healthcare (`/industries/clinics-healthcare`)
+- Hospitality (`/industries/hospitality`)
+- Local Retail (`/industries/local-retail`)
+
+## Commercial Model
+Every engagement is scoped to the client's operational goals and delivered via a custom proposal following a discovery strategy call.
+
+## Contact
+- Strategy Call & Proposals: https://[DOMAIN]/contact
+- Email: [EMAIL]
+- Phone: [PHONE]
+- Location: [ADDRESS]

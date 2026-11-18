@@ -1,0 +1,6 @@
+{
+  "name": "Acendio — AI & Digital Growth Agency",
+  "description": "Acendio builds conversion-focused websites, 24/7 AI receptionists, paid ad systems, reputation automation, and CRM follow-up workflows for growing businesses.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
