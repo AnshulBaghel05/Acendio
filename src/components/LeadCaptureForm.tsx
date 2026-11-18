@@ -21,6 +21,8 @@ const SERVICE_OPTIONS = [
   'CRM & Lead Follow-Up Automation',
   'AI Chat & Support',
   'Custom Software & AI Automation',
+  'Social Media Management',
+  'UGC Ads / Video / Post Creation',
   'Full Growth System / Growth Audit',
 ] as const;
 
@@ -32,6 +34,8 @@ const ROUTE_SERVICE_MAP: Record<string, string> = {
   '/services/crm-lead-follow-up-automation': 'CRM & Lead Follow-Up Automation',
   '/services/ai-chat-support': 'AI Chat & Support',
   '/services/custom-software-ai-automation': 'Custom Software & AI Automation',
+  '/services/social-media-management': 'Social Media Management',
+  '/services/ugc-ads-video-post-creation': 'UGC Ads / Video / Post Creation',
 };
 
 interface FormErrors {

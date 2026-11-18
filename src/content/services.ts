@@ -18,7 +18,21 @@ export type ServiceDiagramType =
   | 'review-routing'
   | 'crm-pipeline'
   | 'chat-graph'
-  | 'custom-middleware';
+  | 'custom-middleware'
+  | 'social-calendar'
+  | 'ugc-studio';
+
+export interface PlatformScopeItem {
+  name: string;
+  role: string;
+  bestFor: string;
+}
+
+export interface CreativeFormatGroup {
+  category: string;
+  ratioSpec: string;
+  formats: string[];
+}
 
 export interface ServicePageData {
   slug: string;
@@ -38,6 +52,13 @@ export interface ServicePageData {
   howItWorks: ServiceStep[];
   integrations: string[];
   outcomes: string[];
+  platforms?: PlatformScopeItem[];
+  platformScopeNote?: string;
+  creativeFormats?: CreativeFormatGroup[];
+  productionClarification?: {
+    title: string;
+    body: string;
+  };
   faqs: FaqItem[];
   relatedSlugs: string[];
   ctaHeadline: string;
@@ -439,9 +460,9 @@ export const SERVICES_CONTENT: ServicePageData[] = [
       },
     ],
     relatedSlugs: [
+      'ugc-ads-video-post-creation',
       'website-development-maintenance',
       'crm-lead-follow-up-automation',
-      'review-management-automation',
     ],
     ctaHeadline: 'Turn Paid Clicks Into Tracked Calendar Bookings',
     ctaSubheadline:
@@ -841,9 +862,9 @@ export const SERVICES_CONTENT: ServicePageData[] = [
       },
     ],
     relatedSlugs: [
+      'social-media-management',
       'ai-receptionist',
       'crm-lead-follow-up-automation',
-      'website-development-maintenance',
     ],
     ctaHeadline: 'Turn Website & Social Chat Questions Into Booked Consultations',
     ctaSubheadline:
@@ -978,13 +999,341 @@ export const SERVICES_CONTENT: ServicePageData[] = [
     ctaSubheadline:
       'Schedule a discovery call to inspect your current stack and scope a clean, reliable integration.',
   },
+  {
+    slug: 'social-media-management',
+    numeral: '08',
+    shortTitle: 'Social Media Management',
+    diagramType: 'social-calendar',
+    bentoOutcome:
+      'Monthly content calendars, post & carousel design, short-form Reels, scheduling, and community management.',
+    metaTitle: 'Social Media Management Agency | Acendio',
+    metaDescription:
+      'Consistent brand positioning, monthly content calendars, carousels, short-form Reels, scheduling, engagement, and performance reporting tailored to your target channels.',
+    primaryKeyword: 'professional social media management agency',
+    h1: 'Social Media Management Built for Consistent Brand Authority & Inbound Demand',
+    heroSubheadline:
+      'Turn quiet or sporadic social profiles into an active credibility channel—backed by audience research, monthly content calendars, custom design, scheduling, and clear reporting.',
+    whoItsFor: [
+      'Local and regional businesses whose social profiles look inactive when prospects check them after seeing an ad or Google listing.',
+      'Owners and internal marketers tired of scrambling each week to write captions, design graphics, and decide what to post.',
+      'Teams wanting unified visual standards and messaging consistency across their website, paid ads, and organic social channels.',
+      'Service providers looking to connect social comments and direct messages cleanly into GoHighLevel lead pipelines.',
+    ],
+    problemTitle: 'Why Sporadic Posting Weakens Buyer Confidence Before They Reach Out',
+    problemParagraphs: [
+      'Before local buyers book a consultation or request a quote, they routinely verify a business across multiple tabs: your website, your Google Business Profile, and your active social feeds. When an Instagram or LinkedIn page shows nothing posted for months—or relies on rushed, off-brand graphics—prospects quietly question how active and dependable the operation is.',
+      'At the same time, handing social media to an already overloaded office coordinator or posting random updates whenever time allows rarely moves the needle. Without structured audience research, clear content pillars, and deliberate calls to action, feeds accumulate filler quotes while failing to generate meaningful inquiries or build brand recognition.',
+      'Acendio runs social media management as a disciplined monthly system. We research your local competitors and buyer questions, build an editorial calendar ahead of each month for simple sign-off, produce custom posts, carousels, and short-form video edits, schedule consistently, monitor community replies, and report real performance signals cleanly.',
+    ],
+    deliverables: [
+      {
+        title: 'Audience Research & Competitive Positioning',
+        description:
+          'Channel audit, competitor benchmarking, messaging pillars, and profile optimization aligned with your core offers.',
+      },
+      {
+        title: 'Monthly Content Calendars & Approval Workflow',
+        description:
+          'Batch-planned monthly publishing schedules organized around clear themes—delivered ahead of time for quick sign-off.',
+      },
+      {
+        title: 'Custom Post Design & Multi-Slide Carousels',
+        description:
+          'Branded static posts, educational carousels, service breakdowns, and visual templates built for mobile readability.',
+      },
+      {
+        title: 'Reels & Short-Form Vertical Video Edits',
+        description:
+          'Paced short-form vertical videos edited from client-supplied clips, walk-throughs, and footage with clean subtitles.',
+      },
+      {
+        title: 'Copywriting, Hashtag & Keyword Research',
+        description:
+          'Direct, human captions structured for social search discovery, clear value framing, and natural next-step CTAs.',
+      },
+      {
+        title: 'Account Scheduling, Community Care & Reporting',
+        description:
+          'Consistent publishing, comment and DM engagement escalation into GoHighLevel, plus monthly analytics reviews.',
+      },
+    ],
+    platforms: [
+      {
+        name: 'Instagram',
+        role: 'Visual trust, multi-slide educational carousels, Reels reach, and DM lead capture.',
+        bestFor: 'Home services, clinics, hospitality, real estate, and specialty retail.',
+      },
+      {
+        name: 'Facebook',
+        role: 'Local community visibility, neighborhood shareability, and retargeting reinforcement.',
+        bestFor: 'Local service operators, multi-location venues, and regional consumer brands.',
+      },
+      {
+        name: 'LinkedIn',
+        role: 'Executive authority, B2B credibility, company updates, and partnership trust.',
+        bestFor: 'B2B services, commercial contractors, real estate brokerages, and advisory teams.',
+      },
+      {
+        name: 'TikTok & YouTube Shorts',
+        role: 'Short-form discovery through practical demonstrations, FAQs, and process walkthroughs.',
+        bestFor: 'Brands ready to supply behind-the-scenes clips for high-frequency vertical distribution.',
+      },
+    ],
+    platformScopeNote:
+      'Channel selection is scoped to where your actual buyers spend time—not every platform is bundled automatically into every engagement. We focus effort on the right channels rather than diluting content thinly.',
+    howItWorks: [
+      {
+        step: '01',
+        title: 'Brand, Audience & Competitor Audit',
+        detail:
+          'We review existing profiles, define visual and voice standards, audit local competitors, and select target channels.',
+      },
+      {
+        step: '02',
+        title: 'Content Pillars & Monthly Calendar',
+        detail:
+          'We map educational, proof-based, and promotional themes into an organized monthly publishing plan for review.',
+      },
+      {
+        step: '03',
+        title: 'Design, Copywriting & Scheduling',
+        detail:
+          'We produce posts, carousels, short-form video edits, and keyword-informed captions—then schedule across agreed platforms.',
+      },
+      {
+        step: '04',
+        title: 'Engagement & Monthly Review',
+        detail:
+          'We monitor comments and DMs, route qualified inquiries to your CRM, and adjust next month’s topics from live performance.',
+      },
+    ],
+    integrations: [
+      'Instagram & Facebook Pages',
+      'LinkedIn Company Profiles',
+      'TikTok & YouTube Channels',
+      'GoHighLevel Social Planner & Unified Inbox',
+      'AI Chat DM Escalation',
+      'Monthly Analytics Reporting',
+    ],
+    outcomes: [
+      'Your brand stays visibly active and recognizable across key channels every single week.',
+      'Prospects validating your business after seeing Google or Meta ads find cohesive, authoritative profiles.',
+      'Owners and internal staff step out of daily design, caption writing, and manual scheduling.',
+      'Social comments and direct messages connect directly into tracked CRM follow-up instead of sitting unread.',
+    ],
+    faqs: [
+      {
+        question: 'How is Social Media Management scoped and priced?',
+        answer:
+          'Every engagement is scoped to your goals; we provide a custom proposal after a short discovery call.',
+      },
+      {
+        question: 'Are Instagram, Facebook, LinkedIn, TikTok, and YouTube all included automatically?',
+        answer:
+          'No. We scope the specific platforms where your target customers are genuinely active—whether that means one primary channel or a multi-platform calendar—so quality never drops across unused feeds.',
+      },
+      {
+        question: 'Do we review and approve posts before they go live?',
+        answer:
+          'Yes. Each month’s content calendar, graphics, captions, and video edits are shared in advance for review and sign-off before scheduled publishing.',
+      },
+      {
+        question: 'How do you source photos or video clips for our posts and Reels?',
+        answer:
+          'We combine branded graphic design, carousel templates, and short-form video editing built around photos, job-site clips, or walkthroughs shared by your team via a simple upload folder.',
+      },
+      {
+        question: 'Can social DMs and comments feed into our CRM?',
+        answer:
+          'Yes. Connected Instagram and Facebook messaging flows straight into your GoHighLevel unified inbox alongside AI chat and SMS follow-up.',
+      },
+    ],
+    relatedSlugs: [
+      'ugc-ads-video-post-creation',
+      'ads-management-creatives',
+      'ai-chat-support',
+    ],
+    ctaHeadline: 'Build a Steady, Credible Social Presence Without Daily Guesswork',
+    ctaSubheadline:
+      'Book a strategy call to align target platforms, monthly content cadence, and CRM lead routing.',
+  },
+  {
+    slug: 'ugc-ads-video-post-creation',
+    numeral: '09',
+    shortTitle: 'UGC Ads / Video / Post Creation',
+    diagramType: 'ugc-studio',
+    bentoOutcome:
+      'UGC-style video ads, product showcases, short-form Reels/TikToks/Shorts, and modular ad variations.',
+    metaTitle: 'UGC-Style Ads, Video & Social Post Creation | Acendio',
+    metaDescription:
+      'Conversion-focused UGC-style video ads, product demos, short-form vertical videos, static and carousel creatives, hooks, scripts, and motion editing.',
+    primaryKeyword: 'UGC style video ads and creative production agency',
+    h1: 'UGC-Style Ads, Short-Form Video & Conversion Post Creation Built to Stop the Scroll',
+    heroSubheadline:
+      'Equip your paid campaigns and organic channels with native-feeling UGC-style video ads, product demonstrations, modular hook variations, and crisp static and carousel creatives.',
+    whoItsFor: [
+      'Advertisers experiencing creative fatigue and rising acquisition costs from running the same static graphics for months.',
+      'Brands that capture raw product clips, job-site demos, or founder walkthroughs but lack scripts, pacing, captions, and ad variations.',
+      'Marketing teams needing consistent 9:16 vertical videos across Meta Reels, TikTok, and YouTube Shorts alongside 4:5 feed ads.',
+      'Companies launching new offers or seasonal promotions that require multiple messaging angles to split-test cleanly.',
+    ],
+    problemTitle: 'Why Polished Corporate Ads Get Ignored in Modern Social Feeds',
+    problemParagraphs: [
+      'Social and video feeds move in milliseconds. Heavily staged corporate banners and stiff studio commercials immediately register as interruptions, prompting buyers to swipe right past before hearing a single product benefit.',
+      'Native, UGC-style creative solves the attention problem by matching how people naturally watch content on phones: crisp three-second visual hooks, relatable problem-solution pacing, clear product demonstrations, tight editing, and easy-to-read captions. Yet producing consistent creative variations—different hooks, body angles, ratios, and static complements—takes structured scripting and editing discipline.',
+      'Acendio handles end-to-end creative concepting, scripting, editing, motion graphics, and platform formatting so your media buyer or organic calendar receives batches of testable video and post assets ready for immediate deployment.',
+    ],
+    deliverables: [
+      {
+        title: 'UGC-Style Video Ads & Problem–Solution Concepts',
+        description:
+          'Native-paced vertical ad edits pairing sharp problem framing, clear product/service proof, and direct-response calls to action.',
+      },
+      {
+        title: 'Product Demos, Showcases & Unboxing-Style Edits',
+        description:
+          'Close-up product highlights, feature walk-throughs, before/after comparisons, and packaging reveals built from supplied clips.',
+      },
+      {
+        title: 'Reels, TikTok & YouTube Shorts Production',
+        description:
+          'Platform-native vertical edits formatted cleanly around safe zones with retention-focused pacing and rhythm.',
+      },
+      {
+        title: 'Hooks, Scripts & Storyboard Frameworks',
+        description:
+          'Modular opening 3-second hooks, voiceover/on-camera scripts, and scene checklists so your team knows exactly what raw clips to capture.',
+      },
+      {
+        title: 'Static Social Ads, Promotional Posts & Carousels',
+        description:
+          'High-clarity graphic ads, comparison frames, and multi-card carousels built to reinforce video campaigns across Meta and feeds.',
+      },
+      {
+        title: 'Editing, Subtitles, Motion Graphics & Ad Variations',
+        description:
+          'Burned-in dynamic captions, clean callouts, sound cleanup, and modular hook/CTA swaps delivered in 9:16, 4:5, and 1:1 exports.',
+      },
+    ],
+    creativeFormats: [
+      {
+        category: 'Short-Form Video Ads & Reels',
+        ratioSpec: '9:16 Vertical · Safe-Zone Checked',
+        formats: [
+          'UGC-style direct-response video ads',
+          'Problem–solution & myth-busting videos',
+          'Instagram Reels, TikTok & YouTube Shorts',
+          '3-second modular hook variations for testing',
+        ],
+      },
+      {
+        category: 'Product & Brand Storytelling',
+        ratioSpec: '9:16 & 4:5 · Meta / Organic / Landing Pages',
+        formats: [
+          'Product demonstration & showcase videos',
+          'Unboxing-style & tactile detail edits',
+          'Brand storytelling & founder walkthroughs',
+          'Testimonial-style concepts (real client clips or narrated proof only)',
+        ],
+      },
+      {
+        category: 'Static & Carousel Ad Systems',
+        ratioSpec: '4:5 Feed & 1:1 Square',
+        formats: [
+          'Static direct-response social ads',
+          'Multi-card carousel ads & feature grids',
+          'Promotional campaign posts & offer callouts',
+          'Headline & primary-text A/B copy variations',
+        ],
+      },
+    ],
+    productionClarification: {
+      title: 'Production Clarity: UGC-Style Creative vs. Third-Party Creators',
+      body: 'This service covers professional scripting, creative direction, video editing, motion graphics, and UGC-style visual production built around your supplied product footage, team clips, screen recordings, and real verified customer material. External influencers, hired actors, or paid third-party creators are not included unless explicitly arranged and scoped separately—and we never fabricate customer testimonials or fake endorsements.',
+    },
+    howItWorks: [
+      {
+        step: '01',
+        title: 'Offer Brief & Angle Mapping',
+        detail:
+          'We clarify buyer objections, target channels, product differentiators, and existing raw footage available.',
+      },
+      {
+        step: '02',
+        title: 'Hooks, Scripts & Capture List',
+        detail:
+          'We write multiple opening hooks, modular scripts, and a concise shot list if new mobile clips are needed from your team.',
+      },
+      {
+        step: '03',
+        title: 'Editing, Design & Motion Polish',
+        detail:
+          'We assemble video edits, subtitles, sound, static ads, and carousels—optimizing safe zones and aspect ratios per platform.',
+      },
+      {
+        step: '04',
+        title: 'Variation Packaging & Refresh Cycle',
+        detail:
+          'We deliver labeled ad sets (Hook A/B/C × Format) ready for Meta/TikTok testing and iterate from live creative signals.',
+      },
+    ],
+    integrations: [
+      'Meta Ads Manager (Reels / Stories / Feed)',
+      'TikTok Ads & Organic Feeds',
+      'YouTube Shorts & Google Video',
+      'Instagram & Facebook Organic Content',
+      'Dedicated Landing Page Embeds',
+      'Modular Testing Naming Conventions',
+    ],
+    outcomes: [
+      'Your ads capture attention quickly instead of blending into stale corporate templates.',
+      'Media buyers get modular hook and visual variations ready to test new messaging angles systematically.',
+      'Prospects understand your product or service value within seconds through clear visual storytelling.',
+      'Creative assets pull double duty across paid acquisition campaigns and organic social feeds.',
+    ],
+    faqs: [
+      {
+        question: 'How is UGC Ads, Video & Post Creation scoped?',
+        answer:
+          'Every engagement is scoped to your goals; we provide a custom proposal after a short discovery call.',
+      },
+      {
+        question: 'What is the difference between UGC-style creative production and hiring external creators?',
+        answer:
+          'UGC-style production focuses on authentic, mobile-native scripting, editing, pacing, captions, and creative formats designed to perform in social feeds—using footage from your product, team, or genuine customer clips. External creator sourcing or paid actors are only included if explicitly scoped.',
+      },
+      {
+        question: 'Can we use real customer clips in testimonial-style video concepts?',
+        answer:
+          'Yes—when you supply genuine, permissioned customer videos or written reviews, we shape them into crisp, compliant proof creatives. We never invent fake reviews or unverified claims.',
+      },
+      {
+        question: 'What dimensions and formats do we receive?',
+        answer:
+          'Exports are tailored to your deployment channels—typically 9:16 vertical for Reels, TikTok, and Shorts alongside 4:5 or 1:1 cuts for social feeds and carousel placements.',
+      },
+      {
+        question: 'Does this pair directly with Acendio Ads Management & Social Media Management?',
+        answer:
+          'Yes. Creative batches plug straight into our Meta/Google Ads testing loops and monthly Social Media Management calendars so messaging stays unified.',
+      },
+    ],
+    relatedSlugs: [
+      'ads-management-creatives',
+      'social-media-management',
+      'website-development-maintenance',
+    ],
+    ctaHeadline: 'Upgrade Your Paid & Organic Creative Lineup With Testable Formats',
+    ctaSubheadline:
+      'Book a discovery call to review your current ad creatives, available assets, and priority video/post deliverables.',
+  },
 ];
 
 export const MORE_SOLUTIONS_ITEM = {
-  numeral: '08',
+  numeral: '10',
   title: 'Custom Scope & Multi-System Rollouts',
   outcome:
-    'Combine web, voice, ads, reviews, and custom integrations—or bring us a specific bottleneck to scope.',
+    'Combine web, voice, ads, social, creative production, and CRM automation—or bring us a specific bottleneck to scope.',
   ctaLabel: 'Request Custom Scope',
   to: '/contact',
 };

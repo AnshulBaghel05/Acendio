@@ -189,16 +189,16 @@ export default function HomePage({ onOpenBookModal }: HomePageProps) {
               </Link>
             ))}
 
-            {/* 8th row: Full Growth Stack / Custom Proposal */}
+            {/* 10th row: Full Growth Stack / Custom Proposal */}
             <div className="grid items-center gap-4 bg-[#0E0F12] px-5 py-5 text-[#F4F1EA] sm:grid-cols-12 sm:px-6">
               <div className="flex items-baseline gap-3 sm:col-span-4">
-                <span className="font-mono-tabular text-xs font-semibold text-[#FF5A1F]">08</span>
+                <span className="font-mono-tabular text-xs font-semibold text-[#FF5A1F]">10</span>
                 <p className="font-sans-tight text-base font-semibold">
-                  Combined Acquisition &amp; CRM Stack
+                  Combined Acquisition, Creative &amp; CRM Stack
                 </p>
               </div>
               <p className="text-sm text-[#A5A8B0] sm:col-span-6">
-                Bundle website, AI receptionist, ads, reviews, and GoHighLevel into one scoped engagement.
+                Bundle web, AI voice, paid ads, social management, UGC-style creative, and GoHighLevel into one scoped rollout.
               </p>
               <div className="sm:col-span-2 sm:text-right">
                 <button

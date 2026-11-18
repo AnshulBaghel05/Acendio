@@ -11,6 +11,8 @@
 - CRM & Lead Follow-Up Automation (`/services/crm-lead-follow-up-automation`): GoHighLevel pipeline setup, instant speed-to-lead, multi-channel nurture, old-lead reactivation, and appointment reminders.
 - AI Chat & Support (`/services/ai-chat-support`): Website and social chat agents trained on verified company FAQs for lead capture and clean human handoff.
 - Custom Software & AI Automation (`/services/custom-software-ai-automation`): Bespoke internal dashboards, API bridges, and structured LLM workflows.
+- Social Media Management (`/services/social-media-management`): Strategy, monthly content calendars, post & carousel design, short-form Reels, copywriting, scheduling, community management, and monthly analytics.
+- UGC Ads / Video / Post Creation (`/services/ugc-ads-video-post-creation`): UGC-style video ads, product showcases, Reels/TikTok/Shorts, static and carousel ad variations, hooks, scripts, and editing.
 
 ## Industries
 - Real Estate (`/industries/real-estate`)

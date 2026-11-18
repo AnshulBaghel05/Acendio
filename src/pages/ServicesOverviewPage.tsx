@@ -16,7 +16,7 @@ export default function ServicesOverviewPage({ onOpenBookModal }: ServicesOvervi
     <>
       <SeoHead
         title="AI & Digital Growth Services | Acendio"
-        description="Explore Acendio services: website development and maintenance, 24/7 AI receptionists, Google and Meta ads, review automation, CRM follow-up, AI chat, and custom software."
+        description="Explore Acendio services: websites, 24/7 AI receptionists, paid ads, social media management, UGC-style video/post creation, review automation, CRM follow-up, AI chat, and custom software."
         path="/services"
         ogImage={SITE_CONFIG.ogImages.service}
         breadcrumbs={[
@@ -31,13 +31,13 @@ export default function ServicesOverviewPage({ onOpenBookModal }: ServicesOvervi
           <div className="grid items-end gap-8 lg:grid-cols-12">
             <div className="lg:col-span-8">
               <p className="font-mono-tabular text-xs font-medium uppercase tracking-wider text-[#FF5A1F]">
-                System Index · 01 — 07
+                System Index · 01 — 09
               </p>
               <h1 className="mt-3 font-editorial text-[clamp(2.1rem,4vw,3.5rem)] font-semibold leading-[1.06] tracking-[-0.025em] text-[#0E0F12]">
-                Seven Connected Growth Services Built to Work as One Stack
+                Nine Connected Growth Services Built to Work as One Stack
               </h1>
               <p className="mt-4 max-w-2xl text-base leading-relaxed text-[#5C5F66] sm:text-lg">
-                Start with your most immediate revenue leak—missed calls, slow follow-up, weak mobile conversion, or stalled ads—or deploy the full system cleanly connected to GoHighLevel.
+                Start with your most immediate revenue leak—missed calls, slow follow-up, inconsistent social channels, fatigued ad creatives, or weak mobile conversion—or deploy the full stack connected to GoHighLevel.
               </p>
             </div>
             <div className="lg:col-span-4 lg:text-right">
@@ -114,17 +114,17 @@ export default function ServicesOverviewPage({ onOpenBookModal }: ServicesOvervi
             ))}
           </div>
 
-          {/* Balanced 8th-Slot Custom Scoping Block */}
+          {/* Balanced 10th-Slot Custom Scoping Block */}
           <div className="mt-10 grid items-center gap-6 border border-[#0E0F12] bg-[#F4F1EA] p-6 sm:p-8 lg:grid-cols-12">
             <div className="lg:col-span-8">
               <p className="font-mono-tabular text-xs font-semibold text-[#FF5A1F]">
-                08 / INTEGRATED BUNDLES
+                10 / INTEGRATED BUNDLES
               </p>
               <h2 className="mt-2 font-editorial text-2xl font-semibold text-[#0E0F12]">
                 Need Multiple Systems Deployed Together?
               </h2>
               <p className="mt-2 text-sm text-[#5C5F66]">
-                We sequence website development, AI receptionists, paid ads, and GoHighLevel CRM automation under a single rollout plan—never cookie-cutter tiers.
+                We sequence website development, AI receptionists, paid ads, social media management, UGC-style creative production, and GoHighLevel CRM automation under a single rollout plan—never cookie-cutter tiers.
               </p>
             </div>
             <div className="lg:col-span-4 lg:text-right">

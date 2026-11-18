@@ -40,6 +40,16 @@ export const SERVICE_NAV_LINKS: NavLinkItem[] = [
     to: '/services/custom-software-ai-automation',
     description: 'Internal tools, API bridges, and structured AI workflows.',
   },
+  {
+    label: 'Social Media Management',
+    to: '/services/social-media-management',
+    description: 'Monthly content calendars, design, short-form Reels, scheduling & engagement.',
+  },
+  {
+    label: 'UGC Ads / Video / Post Creation',
+    to: '/services/ugc-ads-video-post-creation',
+    description: 'UGC-style video ads, product showcases, hooks, scripts & static ad variations.',
+  },
 ];
 
 export const TOP_NAV_LINKS: NavLinkItem[] = [

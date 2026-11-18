@@ -6,6 +6,8 @@ import { trackEvent } from '../lib/analytics';
 import { SeoHead } from '../components/SeoHead';
 import { Breadcrumbs } from '../components/Breadcrumbs';
 import { ServiceDiagram } from '../components/diagrams/ServiceDiagram';
+import { SocialMediaVisual } from '../components/diagrams/SocialMediaVisual';
+import { UgcCreativeVisual } from '../components/diagrams/UgcCreativeVisual';
 import { FaqAccordion } from '../components/FaqAccordion';
 import { LeadCaptureForm } from '../components/LeadCaptureForm';
 import { CtaBand } from '../components/CtaBand';
@@ -20,6 +22,8 @@ type SectionKey =
   | 'who'
   | 'problem'
   | 'deliverables'
+  | 'platforms'
+  | 'creative-formats'
   | 'process'
   | 'outcomes-integrations'
   | 'faq'
@@ -33,12 +37,16 @@ const SERVICE_SECTION_ORDERS: Record<ServicePageData['diagramType'], SectionKey[
   'crm-pipeline': ['diagram', 'problem', 'deliverables', 'process', 'outcomes-integrations', 'faq', 'form'],
   'chat-graph': ['diagram', 'problem', 'outcomes-integrations', 'deliverables', 'process', 'faq', 'form'],
   'custom-middleware': ['problem', 'deliverables', 'outcomes-integrations', 'process', 'who', 'faq', 'form'],
+  'social-calendar': ['platforms', 'deliverables', 'diagram', 'problem', 'process', 'outcomes-integrations', 'faq', 'form'],
+  'ugc-studio': ['creative-formats', 'deliverables', 'problem', 'diagram', 'outcomes-integrations', 'process', 'faq', 'form'],
 };
 
 const HERO_VARIANTS_WITH_INLINE_DIAGRAM = new Set<ServicePageData['diagramType']>([
   'site-architecture',
   'ads-funnel',
   'custom-middleware',
+  'social-calendar',
+  'ugc-studio',
 ]);
 
 const SECTION_LABELS: Record<SectionKey, string> = {
@@ -46,6 +54,8 @@ const SECTION_LABELS: Record<SectionKey, string> = {
   who: 'Who This Is Built For',
   problem: 'Bottleneck Diagnosis',
   deliverables: 'Included Deliverables',
+  platforms: 'Supported Platforms',
+  'creative-formats': 'Creative Formats & Clarity',
   process: 'Rollout Sequence',
   'outcomes-integrations': 'Outcomes & Compatibility',
   faq: 'Questions & Answers',
@@ -69,7 +79,8 @@ export default function ServiceDetailPage({ onOpenBookModal }: ServiceDetailPage
   const darkBandKey: SectionKey =
     service.diagramType === 'review-routing' ||
     service.diagramType === 'chat-graph' ||
-    service.diagramType === 'custom-middleware'
+    service.diagramType === 'custom-middleware' ||
+    service.diagramType === 'ugc-studio'
       ? 'outcomes-integrations'
       : 'process';
 
@@ -267,6 +278,81 @@ export default function ServiceDetailPage({ onOpenBookModal }: ServiceDetailPage
           </div>
         );
 
+      case 'platforms':
+        if (!service.platforms || service.platforms.length === 0) return null;
+        return (
+          <div id="platforms" key={key} className="scroll-mt-24 border-b border-[#D9D4C7] pb-12">
+            <p className="font-mono-tabular text-xs font-medium uppercase tracking-wider text-[#FF5A1F]">
+              Channel Scope
+            </p>
+            <h2 className="mt-2 font-editorial text-2xl font-semibold text-[#0E0F12] sm:text-3xl">
+              Platforms Managed Around Buyer Behavior
+            </h2>
+            <div className="mt-6 grid border-l border-t border-[#D9D4C7] bg-[#FFFFFF] sm:grid-cols-2">
+              {service.platforms.map((platform) => (
+                <div key={platform.name} className="border-b border-r border-[#D9D4C7] p-5">
+                  <h3 className="font-sans-tight text-base font-semibold text-[#0E0F12]">
+                    {platform.name}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed text-[#5C5F66]">{platform.role}</p>
+                  <p className="mt-3 border-t border-[#D9D4C7] pt-2.5 font-mono-tabular text-[11px] text-[#0E0F12]">
+                    Best for: {platform.bestFor}
+                  </p>
+                </div>
+              ))}
+            </div>
+            {service.platformScopeNote && (
+              <p className="mt-4 border border-[#D9D4C7] bg-[#FFFFFF] px-5 py-3.5 text-xs leading-relaxed text-[#5C5F66]">
+                <strong className="font-semibold text-[#0E0F12]">Scope note: </strong>
+                {service.platformScopeNote}
+              </p>
+            )}
+          </div>
+        );
+
+      case 'creative-formats':
+        if (!service.creativeFormats || service.creativeFormats.length === 0) return null;
+        return (
+          <div id="creative-formats" key={key} className="scroll-mt-24 border-b border-[#D9D4C7] pb-12">
+            <p className="font-mono-tabular text-xs font-medium uppercase tracking-wider text-[#FF5A1F]">
+              Creative Lineup
+            </p>
+            <h2 className="mt-2 font-editorial text-2xl font-semibold text-[#0E0F12] sm:text-3xl">
+              Video, Static &amp; Carousel Formats Built for Feed Performance
+            </h2>
+            <div className="mt-6 grid border-l border-t border-[#D9D4C7] bg-[#FFFFFF] md:grid-cols-3">
+              {service.creativeFormats.map((group) => (
+                <div key={group.category} className="border-b border-r border-[#D9D4C7] p-5">
+                  <p className="font-mono-tabular text-[10px] uppercase tracking-wider text-[#FF5A1F]">
+                    {group.ratioSpec}
+                  </p>
+                  <h3 className="mt-1.5 font-sans-tight text-base font-semibold text-[#0E0F12]">
+                    {group.category}
+                  </h3>
+                  <ul className="mt-4 space-y-2 border-t border-[#D9D4C7] pt-3">
+                    {group.formats.map((format) => (
+                      <li key={format} className="flex items-start gap-2 text-xs leading-relaxed text-[#5C5F66]">
+                        <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#FF5A1F]" aria-hidden="true" />
+                        <span>{format}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+            {service.productionClarification && (
+              <div className="mt-5 border border-[#0E0F12] bg-[#FFFFFF] p-5">
+                <p className="font-mono-tabular text-xs font-semibold text-[#FF5A1F]">
+                  {service.productionClarification.title}
+                </p>
+                <p className="mt-1.5 text-sm leading-relaxed text-[#0E0F12]">
+                  {service.productionClarification.body}
+                </p>
+              </div>
+            )}
+          </div>
+        );
+
       case 'faq':
         return (
           <div id="faq" key={key} className="scroll-mt-24">
@@ -360,7 +446,13 @@ export default function ServiceDetailPage({ onOpenBookModal }: ServiceDetailPage
                 </div>
               </div>
               <div className="lg:col-span-6">
-                <ServiceDiagram type={service.diagramType} title={service.shortTitle} />
+                {service.diagramType === 'social-calendar' ? (
+                  <SocialMediaVisual />
+                ) : service.diagramType === 'ugc-studio' ? (
+                  <UgcCreativeVisual />
+                ) : (
+                  <ServiceDiagram type={service.diagramType} title={service.shortTitle} />
+                )}
               </div>
             </div>
           ) : (

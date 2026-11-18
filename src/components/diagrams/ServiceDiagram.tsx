@@ -256,6 +256,75 @@ export function ServiceDiagram({ type, title }: ServiceDiagramProps) {
           <text x="470" y="172" fontFamily="Inter Tight, sans-serif" fontSize="12" fill="#5C5F66">Synced client records</text>
         </svg>
       )}
+
+      {type === 'social-calendar' && (
+        <svg viewBox="0 0 640 240" className="w-full" role="img" aria-label="Social media strategy, calendar production, publishing, and CRM inbox diagram">
+          <rect width="640" height="240" fill="#F4F1EA" />
+          <rect x="20" y="28" width="136" height="106" fill="#FFFFFF" stroke="#0E0F12" strokeWidth="1.5" />
+          <text x="32" y="52" fontFamily="JetBrains Mono, monospace" fontSize="10" fill="#FF5A1F">01 / STRATEGY</text>
+          <text x="32" y="74" fontFamily="Inter Tight, sans-serif" fontSize="13.5" fontWeight="600" fill="#0E0F12">Audience &amp; Audit</text>
+          <text x="32" y="96" fontFamily="Inter Tight, sans-serif" fontSize="11.5" fill="#5C5F66">Content pillars</text>
+          <text x="32" y="114" fontFamily="Inter Tight, sans-serif" fontSize="11.5" fill="#5C5F66">Keyword research</text>
+
+          <line x1="156" y1="81" x2="180" y2="81" stroke="#0E0F12" strokeWidth="1.5" />
+          <rect x="180" y="28" width="142" height="106" fill="#FFFFFF" stroke="#0E0F12" strokeWidth="1.5" />
+          <text x="192" y="52" fontFamily="JetBrains Mono, monospace" fontSize="10" fill="#FF5A1F">02 / CALENDAR</text>
+          <text x="192" y="74" fontFamily="Inter Tight, sans-serif" fontSize="13.5" fontWeight="600" fill="#0E0F12">Batch Production</text>
+          <text x="192" y="96" fontFamily="Inter Tight, sans-serif" fontSize="11.5" fill="#5C5F66">Carousels &amp; Reels</text>
+          <text x="192" y="114" fontFamily="Inter Tight, sans-serif" fontSize="11.5" fill="#5C5F66">Copy &amp; approval</text>
+
+          <line x1="322" y1="81" x2="346" y2="81" stroke="#0E0F12" strokeWidth="1.5" />
+          <rect x="346" y="28" width="136" height="106" fill="#FFFFFF" stroke="#0E0F12" strokeWidth="1.5" />
+          <text x="358" y="52" fontFamily="JetBrains Mono, monospace" fontSize="10" fill="#FF5A1F">03 / PUBLISH</text>
+          <text x="358" y="74" fontFamily="Inter Tight, sans-serif" fontSize="13.5" fontWeight="600" fill="#0E0F12">Scoped Channels</text>
+          <text x="358" y="96" fontFamily="Inter Tight, sans-serif" fontSize="11.5" fill="#5C5F66">IG · FB · LinkedIn</text>
+          <text x="358" y="114" fontFamily="Inter Tight, sans-serif" fontSize="11.5" fill="#5C5F66">TikTok · YouTube</text>
+
+          <line x1="482" y1="81" x2="504" y2="81" stroke="#FF5A1F" strokeWidth="1.5" />
+          <rect x="504" y="28" width="116" height="106" fill="#0E0F12" />
+          <text x="516" y="52" fontFamily="JetBrains Mono, monospace" fontSize="10" fill="#FF5A1F">04 / INBOX</text>
+          <text x="516" y="74" fontFamily="Inter Tight, sans-serif" fontSize="13" fontWeight="600" fill="#F4F1EA">Engagement</text>
+          <text x="516" y="96" fontFamily="Inter Tight, sans-serif" fontSize="11" fill="#A5A8B0">Comments &amp; DMs</text>
+          <text x="516" y="114" fontFamily="Inter Tight, sans-serif" fontSize="11" fill="#A5A8B0">CRM Lead Routing</text>
+
+          <rect x="20" y="154" width="600" height="62" fill="#FFFFFF" stroke="#D9D4C7" />
+          <text x="34" y="178" fontFamily="JetBrains Mono, monospace" fontSize="10" fill="#5C5F66">MONTHLY OPTIMIZATION LOOP</text>
+          <text x="34" y="198" fontFamily="Inter Tight, sans-serif" fontSize="12.5" fill="#0E0F12">
+            Performance Reporting · Reach &amp; Save Insights · Next-Month Creative Refinements
+          </text>
+        </svg>
+      )}
+
+      {type === 'ugc-studio' && (
+        <svg viewBox="0 0 640 240" className="w-full" role="img" aria-label="UGC-style video ads, static creatives, hook testing, and deployment workflow diagram">
+          <rect width="640" height="240" fill="#F4F1EA" />
+          <rect x="20" y="26" width="156" height="188" fill="#FFFFFF" stroke="#0E0F12" strokeWidth="1.5" />
+          <text x="34" y="50" fontFamily="JetBrains Mono, monospace" fontSize="10" fill="#FF5A1F">01 / CONCEPT</text>
+          <text x="34" y="74" fontFamily="Inter Tight, sans-serif" fontSize="13.5" fontWeight="600" fill="#0E0F12">Hooks &amp; Scripts</text>
+          <text x="34" y="102" fontFamily="Inter Tight, sans-serif" fontSize="12" fill="#5C5F66">Problem-solution angles</text>
+          <text x="34" y="124" fontFamily="Inter Tight, sans-serif" fontSize="12" fill="#5C5F66">3-second visual openings</text>
+          <text x="34" y="146" fontFamily="Inter Tight, sans-serif" fontSize="12" fill="#5C5F66">Client asset intake</text>
+          <text x="34" y="168" fontFamily="Inter Tight, sans-serif" fontSize="12" fill="#5C5F66">Brand voice guardrails</text>
+
+          <line x1="176" y1="120" x2="210" y2="120" stroke="#0E0F12" strokeWidth="1.5" />
+          <rect x="210" y="26" width="212" height="188" fill="#0E0F12" />
+          <text x="226" y="50" fontFamily="JetBrains Mono, monospace" fontSize="10" fill="#FF5A1F">02 / CREATIVE SUITE</text>
+          <text x="226" y="76" fontFamily="Inter Tight, sans-serif" fontSize="14" fontWeight="600" fill="#F4F1EA">UGC-Style Production</text>
+          <text x="226" y="106" fontFamily="Inter Tight, sans-serif" fontSize="12" fill="#A5A8B0">Short-form Reels / TikTok / Shorts</text>
+          <text x="226" y="130" fontFamily="Inter Tight, sans-serif" fontSize="12" fill="#A5A8B0">Product demos &amp; unboxing edits</text>
+          <text x="226" y="154" fontFamily="Inter Tight, sans-serif" fontSize="12" fill="#A5A8B0">Static ads &amp; multi-card carousels</text>
+          <text x="226" y="178" fontFamily="Inter Tight, sans-serif" fontSize="12" fill="#A5A8B0">Subtitles, pacing &amp; motion graphics</text>
+
+          <line x1="422" y1="120" x2="454" y2="120" stroke="#FF5A1F" strokeWidth="1.5" />
+          <rect x="454" y="26" width="166" height="188" fill="#FFFFFF" stroke="#0E0F12" strokeWidth="1.5" />
+          <text x="468" y="50" fontFamily="JetBrains Mono, monospace" fontSize="10" fill="#FF5A1F">03 / DEPLOYMENT</text>
+          <text x="468" y="76" fontFamily="Inter Tight, sans-serif" fontSize="13.5" fontWeight="600" fill="#0E0F12">Platform Ready</text>
+          <text x="468" y="106" fontFamily="Inter Tight, sans-serif" fontSize="12" fill="#5C5F66">9:16, 4:5 &amp; 1:1 exports</text>
+          <text x="468" y="130" fontFamily="Inter Tight, sans-serif" fontSize="12" fill="#5C5F66">Modular A/B variations</text>
+          <text x="468" y="154" fontFamily="Inter Tight, sans-serif" fontSize="12" fill="#5C5F66">Paid ad &amp; organic use</text>
+          <text x="468" y="178" fontFamily="Inter Tight, sans-serif" fontSize="12" fill="#5C5F66">Clean safe-zone framing</text>
+        </svg>
+      )}
     </figure>
   );
 }

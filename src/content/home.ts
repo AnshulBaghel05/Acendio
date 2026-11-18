@@ -80,9 +80,9 @@ export const HOME_CONTENT = {
   },
   servicesSection: {
     eyebrow: 'Capabilities Ledger',
-    title: 'Seven Core Systems Under One Roof',
+    title: 'Nine Core Systems Under One Roof',
     subtitle:
-      'Start with a single bottleneck or deploy the complete acquisition and booking stack.',
+      'Start with a single bottleneck or deploy the complete acquisition, creative, and booking stack.',
   },
   process: {
     eyebrow: 'How We Work',

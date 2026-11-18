@@ -14,6 +14,8 @@ const ROUTES = [
   '/services/crm-lead-follow-up-automation',
   '/services/ai-chat-support',
   '/services/custom-software-ai-automation',
+  '/services/social-media-management',
+  '/services/ugc-ads-video-post-creation',
   '/about',
   '/process',
   '/industries',

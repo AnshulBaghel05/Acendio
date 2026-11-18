@@ -67,10 +67,10 @@ export default function FaqPage({ onOpenBookModal }: FaqPageProps) {
                 Service-Specific Questions
               </p>
               <h2 className="mt-2 font-editorial text-2xl font-semibold text-[#0E0F12] sm:text-3xl">
-                Websites, AI Voice, Paid Ads &amp; CRM
+                Websites, AI Voice, Social, Creatives &amp; CRM
               </h2>
-              <div className="mt-6 grid gap-8 md:grid-cols-2">
-                {SERVICES_CONTENT.slice(0, 6).map((svc) => (
+              <div className="mt-6 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                {SERVICES_CONTENT.map((svc) => (
                   <div key={svc.slug} className="border border-[#D9D4C7] bg-[#F4F1EA]/40 p-5">
                     <div className="flex items-center justify-between border-b border-[#D9D4C7] pb-3">
                       <span className="font-mono-tabular text-xs font-semibold text-[#FF5A1F]">

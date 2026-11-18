@@ -100,7 +100,7 @@ export function Navbar({ onOpenBookModal }: NavbarProps) {
                             View All Services →
                           </p>
                           <p className="mt-1 text-xs text-[#A5A8B0]">
-                            Compare all seven capabilities and rollout scopes.
+                            Compare all nine capabilities and rollout scopes.
                           </p>
                         </Link>
                       </div>
